@@ -1,0 +1,13 @@
+@import 'components/User';
+@import 'components/Header';
+
+
+.mat-ripple-element {
+    display: none;
+}
+
+body{
+    background-color:#191919;
+    margin:0px;
+    height: 100vh
+}
