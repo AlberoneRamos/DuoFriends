@@ -96,6 +96,7 @@ function styles(theme) {
         Button:{
             fontWeight:'600',
             marginTop:8,
+            borderRadius:50,
             color:"#fafafa",
             padding:"16px 24px"
         }

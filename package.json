@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --history-api-fallback",
-    "test": "jest --verbose --colors"
+    "test": "jest --verbose --colors",
+    "build": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "dependencies": {
     "babel-jest": "^20.0.3",
