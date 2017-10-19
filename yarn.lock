@@ -45,6 +45,10 @@ acorn@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.1.1.tgz#53fe161111f912ab999ee887a90a0bc52822fd75"
 
+add-px-to-style@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/add-px-to-style/-/add-px-to-style-1.0.0.tgz#d0c135441fa8014a8137904531096f67f28f263a"
+
 ajv-keywords@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.0.tgz#a296e17f7bfae7c1ce4f7e0de53d29cb32162df0"
@@ -1947,6 +1951,14 @@ dom-converter@~0.1:
   resolved "https://registry.yarnpkg.com/dom-converter/-/dom-converter-0.1.4.tgz#a45ef5727b890c9bffe6d7c876e7b19cb0e17f3b"
   dependencies:
     utila "~0.3"
+
+dom-css@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/dom-css/-/dom-css-2.1.0.tgz#fdbc2d5a015d0a3e1872e11472bbd0e7b9e6a202"
+  dependencies:
+    add-px-to-style "1.0.0"
+    prefix-style "2.0.1"
+    to-camel-case "1.0.0"
 
 dom-helpers@^2.4.0:
   version "2.4.0"
@@ -4077,6 +4089,12 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
+material-ui-bottom-sheet@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/material-ui-bottom-sheet/-/material-ui-bottom-sheet-0.5.0.tgz#3e96807b41a53aa988acedcde7b85fd13e2e8279"
+  dependencies:
+    prop-types "^15.5.8"
+
 material-ui-icons@^1.0.0-beta.15:
   version "1.0.0-beta.15"
   resolved "https://registry.yarnpkg.com/material-ui-icons/-/material-ui-icons-1.0.0-beta.15.tgz#fa6c2481517d380a0c2d0daebb7aacf39c2c68a0"
@@ -4280,9 +4298,13 @@ mocha@^3.4.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment@2.x.x, moment@^2.19.0:
+moment@2.x.x:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.0.tgz#44f675ef6b944942762581b1c179fb679e599d67"
+
+moment@^2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
 ms@0.7.2:
   version "0.7.2"
@@ -5394,6 +5416,10 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.11, postcss@^6.0.12, postcss@^6.0.1
     source-map "^0.6.1"
     supports-color "^4.4.0"
 
+prefix-style@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/prefix-style/-/prefix-style-2.0.1.tgz#66bba9a870cfda308a5dc20e85e9120932c95a06"
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -5529,6 +5555,12 @@ querystringify@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
+raf@^3.1.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
+  dependencies:
+    performance-now "^2.1.0"
+
 rafl@~1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/rafl/-/rafl-1.2.2.tgz#fe930f758211020d47e38815f5196a8be4150740"
@@ -5575,6 +5607,14 @@ react-css-themr@^2.1.2:
   dependencies:
     hoist-non-react-statics "^1.2.0"
     invariant "^2.2.1"
+
+react-custom-scrollbars@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/react-custom-scrollbars/-/react-custom-scrollbars-4.1.2.tgz#0e60c4a46c4a61f9e4994a7663e2b9cbbc5187a3"
+  dependencies:
+    dom-css "^2.0.0"
+    prop-types "^15.5.10"
+    raf "^3.1.0"
 
 react-dom@^15.6.1:
   version "15.6.1"
@@ -6634,9 +6674,25 @@ to-arraybuffer@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz#7d229b1fcc637e466ca081180836a7aabff83f43"
 
+to-camel-case@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/to-camel-case/-/to-camel-case-1.0.0.tgz#1a56054b2f9d696298ce66a60897322b6f423e46"
+  dependencies:
+    to-space-case "^1.0.0"
+
 to-fast-properties@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
+
+to-no-case@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/to-no-case/-/to-no-case-1.0.2.tgz#c722907164ef6b178132c8e69930212d1b4aa16a"
+
+to-space-case@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/to-space-case/-/to-space-case-1.0.0.tgz#b052daafb1b2b29dc770cea0163e5ec0ebc9fc17"
+  dependencies:
+    to-no-case "^1.0.0"
 
 topo@1.x.x:
   version "1.1.0"

@@ -5,14 +5,20 @@ import BottomNavigation, {BottomNavigationButton} from 'material-ui/BottomNaviga
 import HomeIcon from 'material-ui-icons/Home';
 import SearchIcon from 'material-ui-icons/Search';
 import NotificationIcon from 'material-ui-icons/Notifications';
+import UserIcon from 'material-ui-icons/Person';
+import GroupIcon from 'material-ui-icons/Group';
 
 const styles = theme => ({
   root: {
-    backgroundColor: theme.palette.secondary.A700,
+    backgroundColor: theme.palette.secondary[500],
     width: '100%',
     color: '#fafafa',
     bottom: 0,
     position: 'fixed'
+  },
+  buttonNav: {
+    padding:'0',
+    width:'20vw'
   }
 });
 
@@ -39,14 +45,20 @@ class SimpleBottomNavigation extends React.Component {
         onChange={this
         .handleChange
         .bind(this)}
-        showLabels
+        
         className={classes.root}>
-        <Link></Link><BottomNavigationButton disableRipple label="Home" icon={< HomeIcon />}/>
-        <Link></Link><BottomNavigationButton disableRipple label="Search" icon={< SearchIcon />}/>
-        <Link></Link><BottomNavigationButton
+        <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< HomeIcon />}/>
+        <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< SearchIcon />}/>
+        <BottomNavigationButton className={classes.buttonNav}
           disableRipple
-          label="Notifications"
+          
           icon={< NotificationIcon />}/>
+        <BottomNavigationButton className={classes.buttonNav}
+          disableRipple
+          icon={< GroupIcon />}/>
+        <BottomNavigationButton className={classes.buttonNav}
+          disableRipple
+          icon={< UserIcon />}/>
       </BottomNavigation>
     );
   }

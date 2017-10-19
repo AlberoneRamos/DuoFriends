@@ -1,0 +1,13 @@
+$theme-secondary: #2DC3B6;
+$theme-primary : #33aab7;
+$theme-alternative : #2055a6;
+$theme-danger : #e74c3c;
+$S : 320px;
+$M : 768px;
+$L : 1170px;
+$gray-darker : #2a2b30; // #222
+$gray-base : darken($gray-darker, 13.5%);
+$gray-dark : lighten($gray-base, 20%); // #333
+$gray : lighten($gray-base, 33.5%); // #555
+$gray-light : lighten($gray-base, 46.7%); // #777
+$gray-lighter : lighten($gray-base, 93.5%); // #eee

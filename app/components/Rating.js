@@ -15,11 +15,11 @@ const Ch = (props) => {
     let {checked, hovered, readOnly=false, ...p} = props;
     const st = readOnly ? {} : styles.editable;
     if (checked)
-        return <ToggleStar style={st} color="#2ec4b6" {...p}/>;
+        return <ToggleStar style={st} color="#05c7a3" {...p}/>;
     else if (hovered)
-        return <ToggleStarBorder style={st} color="#2ec4b6" {...p}/>;
+        return <ToggleStarBorder style={st} color="#05c7a3" {...p}/>;
     else
-        return <ToggleStarBorder style={st} color="#2ec4b6" {...p}/>;
+        return <ToggleStarBorder style={st} color="#05c7a3" {...p}/>;
 };
 
 class Rating extends Component {
@@ -52,8 +52,8 @@ class Rating extends Component {
 
     render() {
         const {hoveredIndex, checkedIndex} = this.state;
-        const {readOnly, values=defaultValues} = this.props;
-        return (<div style={{}}>
+        const {readOnly, values=defaultValues,className} = this.props;
+        return (<div style={{}} className={className ? className : null}>
             {values.map( (i) => {
                 let
                     onClick= readOnly ? undefined : this.onCheck.bind(this, i),

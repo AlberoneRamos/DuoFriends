@@ -1,5 +1,9 @@
+@import 'values/mixins';
+@import 'values/variables';
 @import 'components/User';
 @import 'components/Header';
+@import 'components/buttons';
+
 
 
 .mat-ripple-element {
@@ -7,7 +11,7 @@
 }
 
 body{
-    background-color:#191919;
+    background-color:#12131a;
     margin:0px;
     height: 100vh
 }
