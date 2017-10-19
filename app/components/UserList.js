@@ -3,13 +3,11 @@ import {connect} from 'react-redux';
 import List from 'material-ui/List';
 import User from './User';
 
+
 export class UserList extends Component {
 
     renderUserList() {
-        return this
-            .props
-            .users
-            .map((user) => {
+        return this.props.users.map((user) => {
                 return <User key={user.id} {...user}/>
             })
 
