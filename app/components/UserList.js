@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import List from 'material-ui/list';
-import User from './user';
+import List from 'material-ui/List';
+import User from './User';
 
 export class UserList extends Component {
 
