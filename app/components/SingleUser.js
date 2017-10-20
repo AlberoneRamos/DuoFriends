@@ -103,7 +103,7 @@ export class SingleUser extends Component {
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
                 <BottomSheet classes={{root:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
-                        <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} closeFunction={this.handleRequestClose} snackbarFunction={this.handleSnackbarOpen}/>
+                        <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose} snackbarFunction={this.handleSnackbarOpen}/>
                 </BottomSheet>
             </div>
         );

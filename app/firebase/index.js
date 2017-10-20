@@ -15,4 +15,5 @@ try{
 }
 export var facebookProvider = new firebase.auth.FacebookAuthProvider();
 export var firebaseRef = firebase.database().ref();
+export var storageRef = firebase.storage().ref();
 export default firebase;

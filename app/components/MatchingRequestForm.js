@@ -21,7 +21,7 @@ export class MatchingRequestForm extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        var { availability } = this.props;
+        var { availability } = nextProps;
         if(availability == null){
             return <Typography  align="center" type="title" style={{fontWeight: '100'}}>This user doesn't have any time available :(</Typography>
         } else{
@@ -49,7 +49,7 @@ export class MatchingRequestForm extends Component{
         e.preventDefault();
         var selected = this.state.availability.filter((av)=> av.toggled === true);
         if(selected.length > 0){
-            this.props.dispatch(startSendRequest(selected,0));
+            this.props.dispatch(startSendRequest(selected,this.props.userId));
             if (typeof this.props.closeFunction === 'function') {
                 this.props.closeFunction();
             }
