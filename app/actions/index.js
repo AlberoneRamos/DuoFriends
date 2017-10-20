@@ -1,26 +1,6 @@
 import firebase, {firebaseRef,facebookProvider} from '../firebase/';
 import * as types from './types';
 
-export function startSendRequest(userId,timeRange){
-    return (dispatch,getState) => {
-        var request = {
-            userId,
-            createdAt:moment().format('DD/MM/YYYY HH:mm:ss'),
-            completed: false,
-            completedAt: null
-        }
-        var uid = getState().auth.uid;
-        var todoRef = firebaseRef.child(`users/2/requests`).push(todo);
-
-        return todoRef.then(()=>{
-            dispatch(addTodo({
-                ...todo,
-                id: todoRef.key
-            }));
-        });
-    }
-}
-
 export function addUsers(users){
     return {
         type: 'ADD_USERS',
@@ -39,6 +19,23 @@ export function getUsers(){
                 }
             });
            dispatch(addUsers(usersArray));
+        });
+    }
+}
+
+export function startSendRequest(requestInfo,id){
+    console.log('potato');
+    debugger;
+    return (dispatch,getState) => {
+        var requests = requestInfo.map(request => {
+            return {
+                ...request,
+                user:'Henrique',
+                isFilled:null,
+                toggled:null
+            };
+        }).forEach((request)=>{
+            firebaseRef.child(`Users/${id}/requests`).push(request);
         });
     }
 }

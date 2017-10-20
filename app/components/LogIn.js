@@ -88,7 +88,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 312,
+        width: '80vw',
         color: '#fafafa',
         "&:before": {
             backgroundColor: '#fafafa'
@@ -104,12 +104,12 @@ const styles = theme => ({
         }
     },
     menu: {
-        width: 312
+        width: '80vw'
     },
     Button:{
         fontWeight:'600',
         marginTop:32,
-        width:312,
+        width:'80vw',
         borderRadius:'50px',
         boxShadow:'none',
         color:"#fafafa",

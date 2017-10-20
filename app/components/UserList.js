@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import List from 'material-ui/List';
+import List from 'material-ui/list';
 import User from './User';
 
 

@@ -5,30 +5,18 @@ import {withStyles} from 'material-ui/styles';
 export class ToggleButton extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            toggled: false
-        };
-        this.handleToggleClick = this
-            .handleToggleClick
-            .bind(this);
+        this.state = {}
     }
 
-    handleToggleClick() {
-        this.setState({
-            ...this.state,
-            toggled: !this.state.toggled
-        });
-    }
 
     render() {
-        const {classes, children} = this.props;
-        const {toggled} = this.state;
+        const {classes, children,onClick} = this.props;
+        this.state.toggled = this.props.toggled;
         return (
             <Button disableRipple
-                classes={{root:toggled
+                classes={{root:this.props.toggled
                 ? classes.toggled
-                : classes.root}}
-                onClick={this.handleToggleClick}>{children}</Button>
+                : classes.root}} onClick={this.props.onClick}>{children}</Button>
         );
     }
 }
@@ -42,8 +30,9 @@ function styles(theme){
             borderWidth:2,
             borderColor: '#fafafa',
             color: '#fafafa',
-            padding: "16px 32px",
-            borderRadius:50,
+            padding: "10px 12px",
+            margin:"0px 8px 0px 0px",
+            borderRadius:5,
             transition: "0.2s ease-in-out"
         },
         toggled: {
@@ -54,8 +43,9 @@ function styles(theme){
             borderColor: theme.palette.primary[500]+" !important",
             backgroundColor: theme.palette.primary[500]+" !important",
             color: "#fafafa",
-            padding: "16px 32px",
-            borderRadius:50,
+            padding: "10px 12px",
+            margin:"0px 8px 0px 0px",
+            borderRadius:5,
             transition: "0.2s ease-in-out"
         }
     });

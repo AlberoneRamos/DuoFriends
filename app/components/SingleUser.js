@@ -7,6 +7,8 @@ import Typography from 'material-ui/Typography';
 import Toolbar from 'material-ui/Toolbar';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
+import Snackbar from 'material-ui/Snackbar';
+import { withRouter } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import { BottomSheet } from 'material-ui-bottom-sheet'
 import IconButton from 'material-ui/IconButton';
@@ -18,12 +20,32 @@ export class SingleUser extends Component {
     constructor(props){
         super(props);
         this.state = {
-            open: false
+            open: false,
+            snackbarOpen: false
         };
         this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleSnackbarOpen = this.handleSnackbarOpen.bind(this);
+        this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
         this.handleRequestClose = this.handleRequestClose.bind(this);
     }
     
+    getRoleInfo(roleNumber) {
+        var path = "../../../assets/images/";
+        var roles = [
+            "Top",
+            "Mid",
+            "Jungle",
+            "Bot",
+            "Support",
+            "Fill"
+        ];
+        return [
+            roles[roleNumber - 1],
+            path + roles[roleNumber - 1] + "_icon.svg"
+        ];
+    }
+
+
     handleClickOpen(){
         this.setState({ open: true });
       };
@@ -32,11 +54,35 @@ export class SingleUser extends Component {
         this.setState({ open: false });
       };
     
+      handleSnackbarOpen(){
+        this.setState({ snackbarOpen: true });
+      }
 
+      handleCloseSnackbar(){
+        this.setState({ snackbarOpen: false });
+      }
+    
     render() {
-        const {classes, nickName, userRating,availability} = this.props;
+        const {classes, nickName, userRating,availability,mainRole} = this.props;
         return (
             <div style={{textAlign:'center'}}>
+                <IconButton onClick={this.props.history.goBack.bind(this)} className={classes.closeButton} aria-label="Close">
+                    <CloseIcon />
+                </IconButton>
+                <img src={this.getRoleInfo(mainRole)} className={classes.roleImage}/>
+                <Snackbar
+                        anchorOrigin={{ vertical:'top', horizontal:'center' }}
+                        open={this.state.snackbarOpen}
+                        onRequestClose={this.handleCloseSnackbar}
+                        autoHideDuration={4000}
+                        SnackbarContentProps={{
+                            'aria-describedby': 'message-id',
+                            classes: {
+                                root: classes.Snackbar
+                            }
+                        }}
+                        message={<Typography type="subheading" id="message-id">Request Sent!</Typography >}
+                        />
                 <div
                     style={{
                     position: 'relative',
@@ -56,8 +102,8 @@ export class SingleUser extends Component {
                 }}>{nickName}</Typography>
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
-                <BottomSheet onRequestClose={this.handleRequestClose} open={this.state.open}>
-                        <MatchingRequestForm availability={availability}/>
+                <BottomSheet classes={{root:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
+                        <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} closeFunction={this.handleRequestClose} snackbarFunction={this.handleSnackbarOpen}/>
                 </BottomSheet>
             </div>
         );
@@ -74,6 +120,13 @@ function styles(theme) {
             backgroundSize: 'cover',
             filter: 'blur(5px)'
         },
+        closeButton:{
+            color:"#fafafa",
+            position:"absolute",
+            top:8,
+            left:16,
+            zIndex:2,
+        },
         ProfilePic: {
             borderRadius: '50%',
             border: '4px solid #fafafa',
@@ -84,6 +137,19 @@ function styles(theme) {
             right: 0,
             marginLeft: 'auto',
             marginRight: 'auto'
+        },
+        roleImage:{
+            position:'absolute',
+            top:16,
+            right:16,
+            zIndex:2,
+            width:36
+        },
+        Snackbar:{
+            backgroundColor:"#05c7a3"
+        },
+        BottomSheet:{
+            backgroundColor:'#fff !important'
         },
         Rating:{
             textAlign:'center',
@@ -111,4 +177,4 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(SingleUser));
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(SingleUser)));
