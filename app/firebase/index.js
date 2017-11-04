@@ -1,19 +1,22 @@
 import firebase from 'firebase';
 
-try{
-    var config = {
-        apiKey: "AIzaSyAjZ0qRrwTJdlbcwJEOwBbibNM2_fXR6pg",
-        authDomain: "notstagram.firebaseapp.com",
-        databaseURL: "https://duofriends-44abd.firebaseio.com",
-        projectId: "notstagram",
-        storageBucket: "duofriends-44abd.appspot.com",
-        messagingSenderId: "890113377461"
-    };
-    firebase.initializeApp(config);
-} catch(e){
+const config = {
+    apiKey: "AIzaSyC3elyKa7A3AKA2PdfU7XeY-XydwfjS4LQ",
+    authDomain: "duofriends-44abd.firebaseapp.com",
+    databaseURL: "https://duofriends-44abd.firebaseio.com",
+    projectId: "duofriends",
+    storageBucket: "duofriends-44abd.appspot.com",
+    messagingSenderId: "367419709060"
+};
 
+firebase.initializeApp(config);
+
+export const facebookProvider = new firebase.auth.FacebookAuthProvider();
+export const firebaseRef = firebase.database().ref();
+export const firebaseAuth = firebase.auth();
+export const storageKey = 'AUTH_TOKEN';
+export const isAuthenticated = () => {
+  return !!auth.currentUser || !!localStorage.getItem(storageKey);
 }
-export var facebookProvider = new firebase.auth.FacebookAuthProvider();
-export var firebaseRef = firebase.database().ref();
-export var storageRef = firebase.storage().ref();
+export const storageRef = firebase.storage().ref();
 export default firebase;

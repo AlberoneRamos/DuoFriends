@@ -9,7 +9,14 @@
 .mat-ripple-element {
     display: none;
 }
-
+.switch-wrapper {
+    position: relative;
+  }
+  
+  .switch-wrapper > div {
+    position: absolute;
+    width:100%
+  }
 body{
     background-color:#12131a;
     margin:0px;

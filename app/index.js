@@ -9,6 +9,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import * as actions from './actions';
 import theme from './styles/theme.js';
 
+
 Store.dispatch(actions.getUsers());
 ReactDOM.render(
     <Provider store={Store}>

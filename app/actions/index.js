@@ -1,4 +1,5 @@
 import firebase, {firebaseRef, facebookProvider} from '../firebase/';
+import {logIn} from '../firebase/auth';
 import * as types from './types';
 
 export function addUsers(users) {
@@ -24,6 +25,16 @@ export function getUsers() {
                         });
                 dispatch(addUsers(usersArray));
             });
+    }
+}
+
+export function startLogin(user,password){
+    return (dispatch, getState)=>{
+        return logIn(user, password).then((result)=>{
+            return result;
+        },(error)=>{
+            return error;
+        });
     }
 }
 

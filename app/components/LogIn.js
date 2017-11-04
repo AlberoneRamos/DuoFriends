@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import Input from 'material-ui/Input';
 import Button from 'material-ui/Button';
-import App from './App';
 import {withRouter} from 'react-router-dom';
 import Typography from 'material-ui/Typography';
+import {Link} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
+import {startLogin} from '../actions';
+import {connect} from 'react-redux';
 
 export class LogIn extends Component {
     constructor(props){
         super(props);
         this.state = {
-            username: "",
+            email: "",
             password: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,7 +23,7 @@ export class LogIn extends Component {
     handleUserChange(e){
         this.setState({
             ...this.state,
-            username: e.target.value
+            email: e.target.value
         })
     }
     
@@ -34,7 +36,8 @@ export class LogIn extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.history.push("/home");
+        const {email,password} = this.state;
+        this.props.login(email, password);
     }
 
     render() {
@@ -47,13 +50,14 @@ export class LogIn extends Component {
                     onSubmit={this.handleSubmit.bind(this)}>
                     <img src="../../assets/images/ChallengerOutline.svg" width="200" style={{marginBottom:56}}/>
                     <Input
-                        label="User"
-                        placeholder="User"
+                        label="E-mail"
+                        placeholder="E-mail"
                         classes={{
                             root: classes.textField,
                             focused: classes.focused
                         }}
-                        value = {this.state.username}
+                        type="email"
+                        value = {this.state.email}
                         onChange={this.handleUserChange}
                         margin="normal"/>
                     <Input
@@ -117,4 +121,16 @@ const styles = theme => ({
     }
 });
 
-export default withRouter(withStyles(styles)(LogIn));
+function mapStateToProps(state){
+    return{};
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        login: (email,password) => {
+            dispatch(startLogin(email,password))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(LogIn)));

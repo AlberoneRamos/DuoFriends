@@ -13,7 +13,6 @@ import Button from 'material-ui/Button';
 import { BottomSheet } from 'material-ui-bottom-sheet'
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/ArrowBack';
-import Slide from 'material-ui/transitions/Slide';
 import HalfStarIcon from 'material-ui-icons/StarHalf';
 
 export class SingleUser extends Component {
