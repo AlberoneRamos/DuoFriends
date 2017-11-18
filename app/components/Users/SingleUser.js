@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
-import Rating from './Rating';
+import Rating from '../generalComponents/Rating';
 import MatchingRequestForm from './MatchingRequestForm';
 import Typography from 'material-ui/Typography';
 import Toolbar from 'material-ui/Toolbar';
@@ -23,8 +23,6 @@ export class SingleUser extends Component {
             snackbarOpen: false
         };
         this.handleClickOpen = this.handleClickOpen.bind(this);
-        this.handleSnackbarOpen = this.handleSnackbarOpen.bind(this);
-        this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
         this.handleRequestClose = this.handleRequestClose.bind(this);
     }
     
@@ -53,14 +51,6 @@ export class SingleUser extends Component {
         this.setState({ open: false });
       };
     
-      handleSnackbarOpen(){
-        this.setState({ snackbarOpen: true });
-      }
-
-      handleCloseSnackbar(){
-        this.setState({ snackbarOpen: false });
-      }
-    
     render() {
         const {classes, nickName, userRating,availability,mainRole} = this.props;
         return (
@@ -69,19 +59,6 @@ export class SingleUser extends Component {
                     <CloseIcon />
                 </IconButton>
                 <img src={this.getRoleInfo(mainRole)} className={classes.roleImage}/>
-                <Snackbar
-                        anchorOrigin={{ vertical:'top', horizontal:'center' }}
-                        open={this.state.snackbarOpen}
-                        onRequestClose={this.handleCloseSnackbar}
-                        autoHideDuration={4000}
-                        SnackbarContentProps={{
-                            'aria-describedby': 'message-id',
-                            classes: {
-                                root: classes.Snackbar
-                            }
-                        }}
-                        message={<Typography type="subheading" id="message-id">Request Sent!</Typography >}
-                        />
                 <div
                     style={{
                     position: 'relative',
@@ -102,7 +79,7 @@ export class SingleUser extends Component {
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
                 <BottomSheet classes={{root:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
-                        <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose} snackbarFunction={this.handleSnackbarOpen}/>
+                        <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose}/>
                 </BottomSheet>
             </div>
         );
@@ -143,9 +120,6 @@ function styles(theme) {
             right:16,
             zIndex:2,
             width:36
-        },
-        Snackbar:{
-            backgroundColor:"#05c7a3"
         },
         BottomSheet:{
             backgroundColor:'#fff !important'

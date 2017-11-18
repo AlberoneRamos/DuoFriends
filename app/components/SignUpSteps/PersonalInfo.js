@@ -17,7 +17,6 @@ export class SignUp extends Component{
     }
 
     submit(values){
-        debugger;
         createUser(this.email.value, this.pw.value)
         .catch(e => this.setState({
             errorMessage: e
@@ -27,7 +26,7 @@ export class SignUp extends Component{
     render(){
         const { classes,handleSubmit,handleNext} = this.props;
         return( 
-            <form className={classes.container} onSubmit={ handleSubmit(submit) } style={{
+            <form className={classes.container} onSubmit={ handleSubmit(this.submit) } style={{
             background:'transparent'}}>
                 <Field component={TextField} name="username" label="Username" placeholder="Username" classes={{ root: classes.textField,focused: classes.focused }} margin="normal"/>
                 <Field component={TextField} name="email" label="Email" placeholder="Email" classes={{root: classes.textField,focused: classes.focused }} margin="normal"/>

@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
-import {isAuthenticated} from '../firebase';
+import {isAuthenticated} from '../../firebase/auth';
 import {withRouter} from 'react-router-dom';
 
-export function AuthenticationWrapper(ComposedComponent){
+export default function AuthenticationWrapper(ComposedComponent){
     class AuthenticatedComponent extends Component{
         componentWillMount(){
             if(!isAuthenticated()){
@@ -12,7 +12,7 @@ export function AuthenticationWrapper(ComposedComponent){
 
         componentWillReceiveProps(nextProps) {
             if (!nextProps.authenticated) {
-                this.context.router.push('/');
+                this.props.history.push('/');
             }
         }
         render(){

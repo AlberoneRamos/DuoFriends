@@ -15,8 +15,5 @@ export const facebookProvider = new firebase.auth.FacebookAuthProvider();
 export const firebaseRef = firebase.database().ref();
 export const firebaseAuth = firebase.auth();
 export const storageKey = 'AUTH_TOKEN';
-export const isAuthenticated = () => {
-  return !!auth.currentUser || !!localStorage.getItem(storageKey);
-}
 export const storageRef = firebase.storage().ref();
 export default firebase;

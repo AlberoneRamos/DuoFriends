@@ -34,7 +34,7 @@ export class AddAvailability extends Component{
             {numOfFields.map((member, index) =>
             <li key={index}>
                 <h4>Member #{index + 1}</h4>
-                <Field name={`${member}.firstName`} type="text" component='input' label="First Name"/>
+                <Field name={`${member}.weekday`} type="text" component='input' label="First Name"/>
                 <Field name={`${member}.lastName`} type="text" component='input' label="Last Name"/>
                 <Button onClick={() => fields.remove(index)}>-</Button>
             </li>

@@ -53,7 +53,7 @@ const styles = theme => ({
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'center', 
-        background: "url('../../assets/images/Background.png')",
+        background: "url('../../assets/images/Background2.jpg')",
         height:'100vh',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'

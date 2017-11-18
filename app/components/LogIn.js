@@ -47,7 +47,7 @@ export class LogIn extends Component {
                 height: '100vh',}}>
                 <form className={classes.container} style={{
                 background:'transparent'}}
-                    onSubmit={this.handleSubmit.bind(this)}>
+                    onSubmit={this.handleSubmit}>
                     <img src="../../assets/images/ChallengerOutline.svg" width="200" style={{marginBottom:56}}/>
                     <Input
                         label="E-mail"

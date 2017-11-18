@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import BottomNavigation, {BottomNavigationButton} from 'material-ui/BottomNavigation';
 import HomeIcon from 'material-ui-icons/Home';
+import Badge from 'material-ui/Badge';
 import SearchIcon from 'material-ui-icons/Search';
 import NotificationIcon from 'material-ui-icons/Notifications';
 import UserIcon from 'material-ui-icons/Person';
 import GroupIcon from 'material-ui-icons/Group';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -19,6 +22,21 @@ const styles = theme => ({
   buttonNav: {
     padding:'0',
     width:'20vw'
+  },
+  badge:{
+    top: '-8px',
+    width: '20px',
+    right: '-8px',
+    height: '20px'
+  },
+  badgeHidden:{
+    display:'none'
+  },
+  Icon:{
+    color : '#b8b9bb'
+  },
+  SelectedIcon:{
+    color: theme.palette.primary[500]
   }
 });
 
@@ -36,7 +54,7 @@ class SimpleBottomNavigation extends React.Component {
   };
 
   render() {
-    const {classes} = this.props;
+    const {classes,numberOfRequests} = this.props;
     const {value} = this.state;
 
     return (
@@ -49,13 +67,11 @@ class SimpleBottomNavigation extends React.Component {
         className={classes.root}>
         <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< HomeIcon />}/>
         <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< SearchIcon />}/>
+       <BottomNavigationButton classes={{root:classes.buttonNav, selected:classes.SelectedIcon}}
+          disableRipple icon={<Link to="/notifications"><Badge badgeContent={numberOfRequests} classes={{badge: numberOfRequests > 0 ? classes.badge:classes.badgeHidden}} color="accent">< NotificationIcon /></Badge></Link>}/>
         <BottomNavigationButton className={classes.buttonNav}
           disableRipple
-          
-          icon={< NotificationIcon />}/>
-        <BottomNavigationButton className={classes.buttonNav}
-          disableRipple
-          icon={< GroupIcon />}/>
+          icon={<Link to="/duos">< GroupIcon /></Link>}/>
         <BottomNavigationButton className={classes.buttonNav}
           disableRipple
           icon={< UserIcon />}/>
@@ -68,4 +84,10 @@ SimpleBottomNavigation.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleBottomNavigation);
+function mapStateToProps(state){
+  return {
+    numberOfRequests: state.requests.length
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(SimpleBottomNavigation));

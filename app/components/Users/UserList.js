@@ -2,15 +2,19 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import List from 'material-ui/list';
 import User from './User';
-
+import {getUsers} from '../../actions';
 
 export class UserList extends Component {
 
     renderUserList() {
-        return this.props.users.map((user) => {
-                return <User key={user.id} {...user}/>
+        return this.props.users.map((user,index) => {
+                return <User key={index} {...user}/>
             })
 
+    }
+
+    componentWillMount(){
+        this.props.getUsers();
     }
 
     render() {
@@ -28,4 +32,12 @@ function mapStateToProps(state) {
     return {users: state.users};
 }
 
-export default connect(mapStateToProps)(UserList);
+function mapDispatchToProps(dispatch){
+    return{
+        getUsers: () => {
+            dispatch(getUsers())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);

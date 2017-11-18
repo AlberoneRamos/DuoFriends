@@ -3,10 +3,10 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
-import ToggleButton from './ToggleButton';
+import ToggleButton from '../generalComponents/ToggleButton';
 import keyIndex from 'react-key-index';
 import _ from 'lodash';
-import {startSendRequest} from '../actions';
+import {startSendRequest, broadcastSuccessMessage} from '../../actions';
 
 export class MatchingRequestForm extends Component{
     constructor(props){
@@ -25,16 +25,12 @@ export class MatchingRequestForm extends Component{
         if(availability == null){
             return <Typography  align="center" type="title" style={{fontWeight: '100'}}>This user doesn't have any time available :(</Typography>
         } else{
-            var arrayAvailability = availability.map((av,index)=>{
-                    return {
-                            ...av,
-                            toggled:false,
-                            id:index
-                        }
-                });
+            for(var i in availability){
+                availability[i].toggled = false;
+            }
             this.setState({
                 ...this.state,
-                availability:arrayAvailability
+                availability:availability
             });
         }
     }
@@ -47,30 +43,29 @@ export class MatchingRequestForm extends Component{
 
     handleSubmit(e){
         e.preventDefault();
-        var selected = this.state.availability.filter((av)=> av.toggled === true);
+        var selected = Object.keys(this.state.availability).map((av)=>{
+            return{
+                ...this.state.availability[av],
+                id:av
+            }
+        }).filter((av)=> av.toggled === true);
         if(selected.length > 0){
             this.props.dispatch(startSendRequest(selected,this.props.userId));
             if (typeof this.props.closeFunction === 'function') {
                 this.props.closeFunction();
             }
-            if (typeof this.props.snackbarFunction === 'function') {
-                this.props.snackbarFunction();
-            }
+            this.props.dispatch(broadcastSuccessMessage('Request sent'));
         }
     }
     
     handleToggle(id){
-        var newAvailability = this.state.availability.map((av)=>{
-            if(av.id == id){
-                return {
-                    ...av,
-                    toggled:!av.toggled
-                };
+        var newAvailability = this.state.availability;
+        for(var i in newAvailability){
+            if(i == id){
+                newAvailability[i].toggled = !newAvailability[i].toggled;
             }
-             else{
-                 return av;
-             }   
-        });
+        }
+       
         this.setState({
             ...this.state,
             availability:newAvailability
@@ -82,13 +77,19 @@ export class MatchingRequestForm extends Component{
         if(availability == null){
             return <Typography  align="center" type="title" style={{fontWeight: '100'}}>This user doesn't have any time available :(</Typography>
         } else{
-            var weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            availability = Object.keys(availability).map((av,index)=>{
+                    return {
+                            ...availability[av],
+                            toggled:false,
+                            id:av
+                        }
+                });
             availability = _.mapValues(_.groupBy(availability, 'dayOfWeek'), clist => clist.map(av => _.omit(av, 'dayOfWeek')));
 
-            return Object.keys(availability).map((key, index)=>{
-                return <div key={index}>
-                    <Typography type="subheading">{weekdays[index]}</Typography>
-                    {availability[key].map((availabilityHours,index)=>{
+            return Object.keys(availability).map((weekday)=>{
+                return <div key={weekday}>
+                    <Typography type="subheading">{weekday}</Typography>
+                    {availability[weekday].map((availabilityHours,index)=>{
                         if(!availabilityHours.isFilled)
                             return <ToggleButton key={availabilityHours.id} toggled={this.state.availability[availabilityHours.id].toggled} onClick={this.handleToggle.bind(this,availabilityHours.id)}>{`${availabilityHours.startingTime} - ${availabilityHours.endingTime}`}</ToggleButton>
                     })}

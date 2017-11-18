@@ -4,29 +4,10 @@ import Avatar from 'material-ui/Avatar';
 import {Link} from 'react-router-dom';
 import StarIcon from 'material-ui-icons/Star';
 import {withStyles} from 'material-ui/styles';
+import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
 
 class User extends Component {
-
-    getRoleInfo(roleNumber) {
-        var path = "../../assets/images/";
-        var roles = [
-            "Top",
-            "Mid",
-            "Jungle",
-            "Bot",
-            "Support",
-            "Fill"
-        ];
-        return [
-            roles[roleNumber - 1],
-            path + roles[roleNumber - 1] + "_icon.png"
-        ];
-    }
-
-    getRankImage(rankName) {
-        return `../../assets/images/${rankName}_SUMMONER.jpg`;
-    }
-
+    
     render() {
         const {
             id,
@@ -37,11 +18,11 @@ class User extends Component {
             userRating,
             classes
         } = this.props;
-        const roleInfo = this.getRoleInfo(mainRole);
+        const roleInfo = getRoleInfo(mainRole);
         return (
             <Link to={`player/${id}`}>
                 <ListItem disableRipple button>
-                    <Avatar alt={rank} src={this.getRankImage(league)}></Avatar>
+                    <Avatar alt={rank} src={getRankImage(league)}></Avatar>
                     <ListItemSecondaryAction>
                         <Avatar className={classes.Avatar} alt={roleInfo[0]} src={roleInfo[1]}></Avatar>
 

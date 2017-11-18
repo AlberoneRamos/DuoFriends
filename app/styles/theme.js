@@ -15,7 +15,7 @@ const theme = createMuiTheme({
             800: '#0c0c11',
             900: '#06060a',
             A100: '#5050ff',
-            A200: '#1d1dff',
+            A200: '#ef5350',
             A400: '#0000e9',
             A700: '#0000d0',
             'contrastDefaultColor': 'light',
