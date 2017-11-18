@@ -1,5 +1,6 @@
 export const ADD_AVAILABILITIES = 'ADD_AVAILABILITIES';
 export const ACCEPT_REQUEST = 'ACCEPT_REQUEST';
+export const ADD_USER_INFO = 'ADD_USER_INFO';
 export const ADD_REQUESTS = 'ADD_REQUESTS';
 export const ADD_USERS = 'ADD_USERS';
 export const DECLINE_REQUEST = 'DECLINE_REQUEST';

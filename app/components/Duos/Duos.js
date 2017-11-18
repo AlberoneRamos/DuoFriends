@@ -32,13 +32,13 @@ export class Duo extends Component {
         return(
             <div>
                 <ListItem disableRipple button onClick={() => {this.toggle()}}>
-                    <Link to={`player/${id}`}>
+                    <Link to={`players/${id}`}>
                         <Avatar alt={rank} src={getRankImage(league)}></Avatar>
                     </Link>
                     <ListItemText primary={nickName}/>
                     {this.state.open ? <ExpandLess className={classes.Expand}/> : <ExpandMore className={classes.Expand}/>}
                 </ListItem>
-                <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
+                <Collapse className={classes.collapseText} in={this.state.open} transitionDuration="auto" unmountOnExit>
                     {this.renderSchedules(schedules)}
                 </Collapse>
             </div>
@@ -49,7 +49,7 @@ export class Duo extends Component {
         return schedules.map((schedule,index)=>{
             return(
                 <ListItem key={index}>
-                    <ListItemText inset primary={`${schedule.dayOfWeek},${schedule.startingTime} - ${schedule.endingTime}`} />
+                    <ListItemText inset primary={`${schedule.dayOfWeek}, ${schedule.startingTime} - ${schedule.endingTime}`} />
                 </ListItem>
             );
         });
@@ -68,6 +68,9 @@ const styles = theme => ({
     icon: {
         height: 17,
         verticalAlign: 'top'
+    },
+    collapseText:{
+        color: "#"
     },
     secondaryAction:{
         top:'50%',

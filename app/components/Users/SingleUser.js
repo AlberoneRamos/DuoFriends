@@ -8,11 +8,8 @@ import Toolbar from 'material-ui/Toolbar';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
-import { withRouter } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import { BottomSheet } from 'material-ui-bottom-sheet'
-import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/ArrowBack';
 import HalfStarIcon from 'material-ui-icons/StarHalf';
 
 export class SingleUser extends Component {
@@ -41,7 +38,7 @@ export class SingleUser extends Component {
             path + roles[roleNumber - 1] + "_icon.svg"
         ];
     }
-
+    
 
     handleClickOpen(){
         this.setState({ open: true });
@@ -55,9 +52,6 @@ export class SingleUser extends Component {
         const {classes, nickName, userRating,availability,mainRole} = this.props;
         return (
             <div style={{textAlign:'center'}}>
-                <IconButton onClick={this.props.history.goBack.bind(this)} className={classes.closeButton} aria-label="Close">
-                    <CloseIcon />
-                </IconButton>
                 <img src={this.getRoleInfo(mainRole)} className={classes.roleImage}/>
                 <div
                     style={{
@@ -78,7 +72,7 @@ export class SingleUser extends Component {
                 }}>{nickName}</Typography>
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
-                <BottomSheet classes={{root:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
+                <BottomSheet classes={{paper:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
                         <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose}/>
                 </BottomSheet>
             </div>
@@ -96,13 +90,6 @@ function styles(theme) {
             backgroundSize: 'cover',
             filter: 'blur(5px)'
         },
-        closeButton:{
-            color:"#fafafa",
-            position:"absolute",
-            top:8,
-            left:16,
-            zIndex:2,
-        },
         ProfilePic: {
             borderRadius: '50%',
             border: '4px solid #fafafa',
@@ -116,10 +103,10 @@ function styles(theme) {
         },
         roleImage:{
             position:'absolute',
-            top:16,
+            top:8,
             right:16,
             zIndex:2,
-            width:36
+            height:40
         },
         BottomSheet:{
             backgroundColor:'#fff !important'
@@ -150,4 +137,4 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(SingleUser)));
+export default connect(mapStateToProps)(withStyles(styles)(SingleUser));

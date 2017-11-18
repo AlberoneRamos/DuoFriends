@@ -21,7 +21,7 @@ firebaseAuth.onAuthStateChanged((user)=>{
         });
         Store.dispatch(actions.login(user.uid));
         Store.dispatch(actions.getAvailabilities());
-        history.push('/home');
+        history.push('/players');
     } else{
         localStorage.removeItem(storageKey);
         Store.dispatch(actions.logout());

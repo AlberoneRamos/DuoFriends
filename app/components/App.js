@@ -61,12 +61,12 @@ export class App extends React.Component {
           message={<Typography type="subheading" id="message-id">{message}</Typography >}
           />
           {currentPath == '/' || currentPath == '/signup' || currentPath == '/player/:id' ? null : <Header /> }
-            <Route exact path='/' component={LogIn}/>
-            <Route exact path='/signup' component={SignUp}/>
-            <Route path='/home' component={AuthenticationWrapper(UserList)}/>
-            <Route path='/notifications' component={AuthenticationWrapper(NotificationList)}/>
-            <Route path='/duos' component={AuthenticationWrapper(DuosList)}/>
-            <Route path='/player/:id' component={AuthenticationWrapper(SingleUser)}/>
+            <Route name="login" exact path='/' component={LogIn}/>
+            <Route name="signup" exact path='/signup' component={SignUp}/>
+            <Route name="players" exact path='/players' component={AuthenticationWrapper(UserList)}/>
+            <Route name="notifications" path='/notifications' component={AuthenticationWrapper(NotificationList)}/>
+            <Route name="duos" path='/duos' component={AuthenticationWrapper(DuosList)}/>
+            <Route name="singleUser" path='/players/:id' component={AuthenticationWrapper(SingleUser)}/>
           {currentPath == '/' || currentPath == '/signup' ? null : <BottomNavigation /> }
       </div>
         );

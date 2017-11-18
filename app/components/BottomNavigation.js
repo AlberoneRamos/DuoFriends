@@ -6,7 +6,6 @@ import HomeIcon from 'material-ui-icons/Home';
 import Badge from 'material-ui/Badge';
 import SearchIcon from 'material-ui-icons/Search';
 import NotificationIcon from 'material-ui-icons/Notifications';
-import UserIcon from 'material-ui-icons/Person';
 import GroupIcon from 'material-ui-icons/Group';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -72,9 +71,6 @@ class SimpleBottomNavigation extends React.Component {
         <BottomNavigationButton className={classes.buttonNav}
           disableRipple
           icon={<Link to="/duos">< GroupIcon /></Link>}/>
-        <BottomNavigationButton className={classes.buttonNav}
-          disableRipple
-          icon={< UserIcon />}/>
       </BottomNavigation>
     );
   }

@@ -20,7 +20,7 @@ class User extends Component {
         } = this.props;
         const roleInfo = getRoleInfo(mainRole);
         return (
-            <Link to={`player/${id}`}>
+            <Link to={`players/${id}`}>
                 <ListItem disableRipple button>
                     <Avatar alt={rank} src={getRankImage(league)}></Avatar>
                     <ListItemSecondaryAction>
