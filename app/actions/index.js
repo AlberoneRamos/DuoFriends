@@ -53,6 +53,9 @@ export function startLogin(user, password) {
             return result;
         }, (error) => {
             dispatch(broadcastErrorMessage(error.message));
+            setTimeout(() => {
+            dispatch({ type: 'REMOVE_MESSAGE' })
+            }, 5000);
             return error;
         });
     }
@@ -138,6 +141,9 @@ export function startAcceptRequest(requestId, availabilityId, senderId) {
                     });
             }, (error) => {
                 dispatch(broadcastErrorMessage(error.message));
+                setTimeout(() => {
+                store.dispatch({ type: 'REMOVE_MESSAGE' })
+                }, 5000);
                 return error;
             })
 

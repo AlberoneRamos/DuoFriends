@@ -18,52 +18,6 @@ import {startLogout} from '../actions';
 import {connect} from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 
-const styles = theme => ({
-  root: {
-    backgroundColor : theme.palette.secondary[500],
-    width: '100%',
-    color: '#fafafa',
-  },
-  flex: {
-    flex: 1
-  },
-  button: {
-    position: 'absolute',
-    right: 0,
-    marginRight: 16,
-    fontWeight:'thick',
-    color: '#fafafa'
-  },
-  closeButton:{
-      color:"#fafafa",
-  },
-  avatarSide:{
-    width:50,
-    height:50,
-    borderRadius:'50%'
-  },
-  sidebar:{
-    backgroundColor: theme.palette.secondary[500],
-  },
-  sidebarIcons:{
-    color: theme.palette.secondary[200],
-  },
-  list:{
-    width: 200,
-    padding:16
-  },
-  drawerText:{
-    color: theme.palette.secondary[200],
-    fontWeight: 'thin',
-    marginTop:8,
-    marginRight:16,
-    display:'inline-block'
-  },
-  drawerTitle:{
-    display:'block'
-  },
-});
-
 export class Header extends Component{
   constructor(props){
     super(props);
@@ -100,7 +54,7 @@ export class Header extends Component{
             <UserIcon className={classes.sidebarIcons}/>
             <ListItemText primary="Perfil"/>
           </ListItem>
-          <ListItem disableRipple button>
+          <ListItem disableRipple button onClick={() =>{this.props.logout()}}>
             <SignOutIcon className={classes.sidebarIcons}/>
             <ListItemText primary="Sair"/>
           </ListItem>
@@ -137,10 +91,6 @@ export class Header extends Component{
   }
 }
 
-Header.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
 function mapStateToProps(state){
     return{
       availability: state.availability,
@@ -153,5 +103,41 @@ function mapDispatchToProps(dispatch){
         logout: () => {dispatch(startLogout())}
     }
 }
+
+const styles = theme => ({
+  root: {
+    backgroundColor : theme.palette.secondary[500],
+    width: '100%',
+    color: '#fafafa',
+  },
+  closeButton:{
+      color:"#fafafa",
+  },
+  avatarSide:{
+    width:50,
+    height:50,
+    borderRadius:'50%'
+  },
+  sidebar:{
+    backgroundColor: theme.palette.secondary[500],
+  },
+  sidebarIcons:{
+    color: theme.palette.secondary[200],
+  },
+  list:{
+    width: 200,
+    padding:16
+  },
+  drawerText:{
+    color: theme.palette.secondary[200],
+    fontWeight: 'thin',
+    marginTop:8,
+    marginRight:16,
+    display:'inline-block'
+  },
+  drawerTitle:{
+    display:'block'
+  },
+});
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Header)));

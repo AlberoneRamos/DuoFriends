@@ -37,11 +37,10 @@ export class App extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(typeof nextProps.snackbar.message == 'string' && nextProps.snackbar.message != '' && this.props.snackbar.message != nextProps.snackbar.message){
+    if(typeof nextProps.snackbar.message == 'string' && nextProps.snackbar.message != ''){
       this.setState({
         snackbarOpen: true
       });
-      this.remove
     }
   }
 

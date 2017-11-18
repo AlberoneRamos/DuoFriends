@@ -12,6 +12,9 @@ export default function snackbarReducer(state = {}, action) {
                 message: action.message,
                 type: 'error'
             }
+        case 'REMOVE_MESSAGE':
+            return {
+            }
         default:
             return state;
     }
