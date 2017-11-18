@@ -64,13 +64,13 @@ class SimpleBottomNavigation extends React.Component {
         .bind(this)}
         
         className={classes.root}>
-        <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< HomeIcon />}/>
+        <BottomNavigationButton component={Link} to="players" className={classes.buttonNav} disableRipple icon={< HomeIcon />}/>
         <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< SearchIcon />}/>
-       <BottomNavigationButton classes={{root:classes.buttonNav, selected:classes.SelectedIcon}}
-          disableRipple icon={<Link to="/notifications"><Badge badgeContent={numberOfRequests} classes={{badge: numberOfRequests > 0 ? classes.badge:classes.badgeHidden}} color="accent">< NotificationIcon /></Badge></Link>}/>
-        <BottomNavigationButton className={classes.buttonNav}
+       <BottomNavigationButton component={Link} to="/notifications" classes={{root:classes.buttonNav, selected:classes.SelectedIcon}}
+          disableRipple icon={<Badge badgeContent={numberOfRequests} classes={{badge: numberOfRequests > 0 ? classes.badge:classes.badgeHidden}} color="accent">< NotificationIcon /></Badge>}/>
+        <BottomNavigationButton component={Link} to="/duos" className={classes.buttonNav}
           disableRipple
-          icon={<Link to="/duos">< GroupIcon /></Link>}/>
+          icon={< GroupIcon />}/>
       </BottomNavigation>
     );
   }

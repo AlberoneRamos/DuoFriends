@@ -14,6 +14,7 @@ import CloseIcon from 'material-ui-icons/ArrowBack';
 import SignOutIcon from 'material-ui-icons/ExitToApp';
 import List,{ListItem, ListItemText} from 'material-ui/list';
 import UserIcon from 'material-ui-icons/Person';
+import SchedulesIcon from 'material-ui-icons/AccessTime';
 import {startLogout} from '../actions';
 import {connect} from 'react-redux';
 import IconButton from 'material-ui/IconButton';
@@ -45,18 +46,22 @@ export class Header extends Component{
           <Typography type="title" className={classes.drawerTitle} gutterBottom>{username}</Typography>
           <Link to="/duos" onClick={() => {this.toggleDrawer()} }>
             <Typography className={classes.drawerText} gutterBottom><b style={{color:'#fafafa'}}>{duosArray.filter((item, pos)=>{return duosArray.indexOf(item) == pos}).length}</b> Duos</Typography>
-            <Typography className={classes.drawerText} gutterBottom><b style={{color:'#fafafa'}}>{Object.keys(availability).length}</b> Horários</Typography>
+            <Typography className={classes.drawerText} gutterBottom><b style={{color:'#fafafa'}}>{Object.keys(availability).length}</b> schedules</Typography>
           </Link>
         </div>
         <Divider style={{backgroundColor:"#0f1015",height:2}}/>
         <List>
-          <ListItem disableRipple button>
+          <ListItem button>
             <UserIcon className={classes.sidebarIcons}/>
-            <ListItemText primary="Perfil"/>
+            <ListItemText primary="My profile"/>
           </ListItem>
-          <ListItem disableRipple button onClick={() =>{this.props.logout()}}>
+          <ListItem button>
+            <SchedulesIcon className={classes.sidebarIcons}/>
+            <ListItemText primary="My schedules"/>
+          </ListItem>
+          <ListItem button onClick={() =>{this.props.logout()}}>
             <SignOutIcon className={classes.sidebarIcons}/>
-            <ListItemText primary="Sair"/>
+            <ListItemText primary="Sign-out"/>
           </ListItem>
         </List>
       </div>
