@@ -12,7 +12,7 @@ import Button from 'material-ui/Button';
 import {Link, withRouter} from 'react-router-dom';
 import CloseIcon from 'material-ui-icons/ArrowBack';
 import SignOutIcon from 'material-ui-icons/ExitToApp';
-import List,{ListItem, ListItemText} from 'material-ui/list';
+import List,{ListItem, ListItemText} from 'material-ui/List';
 import UserIcon from 'material-ui-icons/Person';
 import SchedulesIcon from 'material-ui-icons/AccessTime';
 import {startLogout} from '../actions';
@@ -70,7 +70,6 @@ export class Header extends Component{
 
   renderMainAction(){
           const {location,classes} = this.props;
-          debugger;
           if(location.pathname.match(new RegExp("/", "g")).length <= 1){
               return (<Avatar onClick={() => {this.toggleDrawer()} } src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png"></Avatar>);
           }

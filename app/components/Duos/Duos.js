@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/list';
+import {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import {Link} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';

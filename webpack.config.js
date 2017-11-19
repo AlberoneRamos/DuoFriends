@@ -1,11 +1,12 @@
 const path = require('path');
+const express = require('express');
 
 
 module.exports = {
     entry: ['./app/index'],
     output:{
         path: path.resolve('public'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     module: {
         loaders: [
@@ -21,7 +22,7 @@ module.exports = {
                 }]},
                 {
                   test: /\.css$/,
-                  use: [
+                      use: [
                     "style-loader",
                     {
                       loader: "css-loader",
@@ -38,6 +39,11 @@ module.exports = {
         ]
     },
     devServer:{
-        historyApiFallback: true
+        historyApiFallback: true,
+        compress: true,
+        contentBase: [
+            path.resolve('assets'),
+            path.resolve('public')
+        ]
     }
 }

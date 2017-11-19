@@ -24,7 +24,7 @@ export class SingleUser extends Component {
     }
     
     getRoleInfo(roleNumber) {
-        var path = "../../../assets/images/";
+        var path = "/images/";
         var roles = [
             "Top",
             "Mid",

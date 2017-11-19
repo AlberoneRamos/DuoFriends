@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import List from 'material-ui/list';
+import List from 'material-ui/List';
 import Notification from './Notification';
 
 export class NotificationList extends Component {

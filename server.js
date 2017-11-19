@@ -11,7 +11,10 @@ app.use((request,response,next) => {
     }
 });
 
-app.use(express.static('public'));
+app.use(express.static('assets/'));
+
+app.use(express.static('/'));
+
 
 app.listen(PORT, function(){
     console.log('Express server is up on port ' + PORT);

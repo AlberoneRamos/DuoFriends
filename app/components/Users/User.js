@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListItem, ListItemSecondaryAction, ListItemText} from 'material-ui/list';
+import {ListItem, ListItemSecondaryAction, ListItemText} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import {Link} from 'react-router-dom';
 import StarIcon from 'material-ui-icons/Star';

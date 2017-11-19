@@ -48,7 +48,7 @@ export class LogIn extends Component {
                 <form className={classes.container} style={{
                 background:'transparent'}}
                     onSubmit={this.handleSubmit}>
-                    <img src="../../assets/images/ChallengerOutline.svg" width="200" style={{marginBottom:56}}/>
+                    <img src="/images/ChallengerOutline.svg" width="200" style={{marginBottom:56}}/>
                     <Input
                         label="E-mail"
                         placeholder="E-mail"
@@ -85,7 +85,7 @@ const styles = theme => ({
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'center',
-        background: "url('../../assets/images/Background.png')",
+        background: "url('/images/Background.png')",
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
     },
