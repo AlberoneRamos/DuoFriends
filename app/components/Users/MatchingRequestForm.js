@@ -4,7 +4,6 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
 import ToggleButton from '../generalComponents/ToggleButton';
-import keyIndex from 'react-key-index';
 import _ from 'lodash';
 import {startSendRequest, broadcastSuccessMessage} from '../../actions';
 
