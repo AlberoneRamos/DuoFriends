@@ -53,9 +53,6 @@ export function startLogin(user, password) {
             return result;
         }, (error) => {
             dispatch(broadcastErrorMessage(error.message));
-            setTimeout(() => {
-            dispatch({ type: 'REMOVE_MESSAGE' })
-            }, 5000);
             return error;
         });
     }
@@ -116,12 +113,15 @@ export function addUserInfo(userInfo) {
 export function startAcceptRequest(requestId, availabilityId, senderId) {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        var availabilityRef = firebaseRef.child(`users/${uid}/availability/${availabilityId}`);
-        var updates = {
-            userId: senderId,
-            isFilled: true
-        }
-        return availabilityRef
+        var availabilityRef = firebaseRef.child(`users/${uid}/availability/${availabilityId}`)
+        availabilityRef.once("value").then((snapshot)=>{
+            var updates ={
+                ...snapshot.val(),
+                userId: senderId,
+                isFilled: true
+            }
+            firebaseRef.child(`users/${senderId}/availability`).push({...updates,userId: uid});
+            return availabilityRef
             .update(updates)
             .then((result) => {
                 return firebaseRef
@@ -138,15 +138,12 @@ export function startAcceptRequest(requestId, availabilityId, senderId) {
                                         .remove();
                                 }
                             });
-                    });
+                    })
             }, (error) => {
                 dispatch(broadcastErrorMessage(error.message));
-                setTimeout(() => {
-                store.dispatch({ type: 'REMOVE_MESSAGE' })
-                }, 5000);
                 return error;
             })
-
+        });
     }
 }
 

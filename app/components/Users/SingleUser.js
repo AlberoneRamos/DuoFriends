@@ -49,10 +49,12 @@ export class SingleUser extends Component {
       };
     
     render() {
-        const {classes, nickName, userRating,availability,mainRole} = this.props;
+        const {classes, nickName, userRating,availability,mainRole,id} = this.props;
+        var imageCode = ((id.match(/\d/g).join("") * 9301 + 49297) % 233280) / 233280;
+        imageCode = Math.round(588 + imageCode * (620 - 588));
         return (
             <div style={{textAlign:'center'}}>
-                <img src={this.getRoleInfo(mainRole)} className={classes.roleImage}/>
+                <img src={this.getRoleInfo(mainRole)[1]} className={classes.roleImage}/>
                 <div
                     style={{
                     position: 'relative',
@@ -61,7 +63,7 @@ export class SingleUser extends Component {
                 }}>
                     <div className={classes.MainCharacter}/>
                     <img
-                        src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png"
+                        src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${imageCode}.png`}
                         className={classes.ProfilePic}/>
                 </div>
                 <Typography

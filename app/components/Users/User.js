@@ -21,7 +21,7 @@ class User extends Component {
         const roleInfo = getRoleInfo(mainRole);
         return (
             <Link to={`players/${id}`}>
-                <ListItem disableRipple button>
+                <ListItem button>
                     <Avatar alt={rank} src={getRankImage(league)}></Avatar>
                     <ListItemSecondaryAction>
                         <Avatar className={classes.Avatar} alt={roleInfo[0]} src={roleInfo[1]}></Avatar>

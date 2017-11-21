@@ -6,6 +6,7 @@ import {withStyles} from 'material-ui/styles';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import Collapse from 'material-ui/transitions/Collapse';
+import Divider from 'material-ui/Divider';
 import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
 
 export class Duo extends Component {
@@ -31,7 +32,7 @@ export class Duo extends Component {
         const roleInfo = getRoleInfo(mainRole);
         return(
             <div>
-                <ListItem disableRipple button onClick={() => {this.toggle()}}>
+                <ListItem button onClick={() => {this.toggle()}}>
                     <Link to={`players/${id}`}>
                         <Avatar alt={rank} src={getRankImage(league)}></Avatar>
                     </Link>
@@ -48,9 +49,9 @@ export class Duo extends Component {
     renderSchedules(schedules){
         return schedules.map((schedule,index)=>{
             return(
-                <ListItem key={index}>
-                    <ListItemText inset primary={`${schedule.dayOfWeek}, ${schedule.startingTime} - ${schedule.endingTime}`} />
-                </ListItem>
+                    <ListItem key={index}>
+                        <ListItemText inset primary={`${schedule.dayOfWeek}, ${schedule.startingTime} - ${schedule.endingTime}`} />
+                    </ListItem>
             );
         });
     }
@@ -69,16 +70,13 @@ const styles = theme => ({
         height: 17,
         verticalAlign: 'top'
     },
-    collapseText:{
-        color: "#"
-    },
     secondaryAction:{
         top:'50%',
         marginTop:'-16px',
         right:8
     },
     Expand:{
-        color:"#fafafa"
+        color:theme.palette.primary[500]
     },
     ButtonBase:{
         height:36,

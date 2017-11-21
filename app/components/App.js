@@ -22,7 +22,6 @@ export class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      snackbarOpen: false
     };
     this.handleSnackbarOpen = this.handleSnackbarOpen.bind(this);
     this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
@@ -42,6 +41,15 @@ export class App extends React.Component {
         snackbarOpen: true
       });
     }
+  }
+
+  componentDidUpdate(){
+      if(this.state.snackbarOpen == false){
+        this.props.removeSnackbarMessage();
+        this.setState({
+          snackbarOpen: undefined
+        });
+      }
   }
 
   render() {
@@ -78,6 +86,12 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchToProps(dispatch){
+  return {
+    removeSnackbarMessage:()  => dispatch({type:'REMOVE_MESSAGE'})
+  }
+}
+
 function styles(theme) {
   return ({
     snackbarSuccess : {
@@ -89,4 +103,4 @@ function styles(theme) {
   });
 };
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(App)));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(App)));

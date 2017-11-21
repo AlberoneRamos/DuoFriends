@@ -1,6 +1,9 @@
 import {SUCCESS_MESSAGE, ERROR_MESSAGE} from "../actions/types";
 
 export default function snackbarReducer(state = {}, action) {
+    setTimeout(() => {
+            return {}
+        }, 5000);
     switch (action.type) {
         case SUCCESS_MESSAGE:
             return {

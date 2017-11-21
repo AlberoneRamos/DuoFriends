@@ -28,19 +28,15 @@ export class NotificationList extends Component {
 
 function mapStateToProps(state) {
     return {
-        requests: state.requests.map((request) => {
-          return {
-              ...state.availability[request.availabilityId],
-              availabilityId:request.availabilityId,
-              id:request.id,
-              senderInfo: {
-                  ...state.users.filter((user) => {return request.user == user.id})[0],
-                  requests:null,
-                  availability:null
-              }
-          }  
-        })};
+        availability: Object.keys(state
+            .availability)
+            .map((id) => {
+                return {
+                    ...state.availability[id]
+                    }
+                }
+            )
+    };
 }
-
 
 export default connect(mapStateToProps)(NotificationList);

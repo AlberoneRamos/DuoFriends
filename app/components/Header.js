@@ -33,16 +33,17 @@ export class Header extends Component{
   };
 
   sideList() {
-    const {classes,username,availability} = this.props;
-    var duosArray = [],id;
-    for(id in availability){
-        if(availability[id].userId)
-          duosArray.push(availability[id].userId);
+    const {classes,username,availability,id} = this.props;
+    var duosArray = [],index;
+    for(index in availability){
+        if(availability[index].userId)
+          duosArray.push(availability[index].userId);
     }
+    var imageCode = id ? Math.round(588 + ((id.match(/\d/g).join("") * 9301 + 49297) % 233280) / 233280  * (620 - 588)) : '' ;
     return (
       <div>
         <div className={classes.list}>
-          <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png" className={classes.avatarSide}/>
+          <img src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${imageCode}.png`} className={classes.avatarSide}/>
           <Typography type="title" className={classes.drawerTitle} gutterBottom>{username}</Typography>
           <Link to="/duos" onClick={() => {this.toggleDrawer()} }>
             <Typography className={classes.drawerText} gutterBottom><b style={{color:'#fafafa'}}>{duosArray.filter((item, pos)=>{return duosArray.indexOf(item) == pos}).length}</b> Duos</Typography>
@@ -69,9 +70,10 @@ export class Header extends Component{
   }
 
   renderMainAction(){
-          const {location,classes} = this.props;
+          const {location,classes,id} = this.props;
+          var imageCode = id ?  Math.round(588 + ((id.match(/\d/g).join("") * 9301 + 49297) % 233280) / 233280  * (620 - 588)) : '' ;
           if(location.pathname.match(new RegExp("/", "g")).length <= 1){
-              return (<Avatar onClick={() => {this.toggleDrawer()} } src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png"></Avatar>);
+              return (<Avatar onClick={() => {this.toggleDrawer()} } src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${imageCode}.png`}></Avatar>);
           }
           else{
             return (<IconButton onClick={this.props.history.goBack.bind(this)} className={classes.closeButton} aria-label="Close">
@@ -98,7 +100,8 @@ export class Header extends Component{
 function mapStateToProps(state){
     return{
       availability: state.availability,
-      username: state.userInfo.nickName
+      username: state.userInfo.nickName,
+      id:state.userInfo.id ?  state.userInfo.id : undefined
     };
 }
 
