@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import List from 'material-ui/List';
-import Notification from './Notification';
+import Schedule from './Schedule';
 
-export class NotificationList extends Component {
+export class ScheduleList extends Component {
 
     renderRequestList() {
         return this
             .props
             .requests
             .map((request, index) => {
-                return <Notification key={index} {...request}/>
+                return <Schedule key={index} {...request}/>
             })
 
     }
@@ -39,4 +39,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(NotificationList);
+export default connect(mapStateToProps)(ScheduleList);

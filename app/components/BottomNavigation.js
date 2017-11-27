@@ -4,7 +4,6 @@ import {withStyles} from 'material-ui/styles';
 import BottomNavigation, {BottomNavigationButton} from 'material-ui/BottomNavigation';
 import HomeIcon from 'material-ui-icons/Home';
 import Badge from 'material-ui/Badge';
-import SearchIcon from 'material-ui-icons/Search';
 import NotificationIcon from 'material-ui-icons/Notifications';
 import GroupIcon from 'material-ui-icons/Group';
 import {connect} from 'react-redux';
@@ -65,7 +64,6 @@ class SimpleBottomNavigation extends React.Component {
         
         className={classes.root}>
         <BottomNavigationButton component={Link} to="players" className={classes.buttonNav} disableRipple icon={< HomeIcon />}/>
-        <BottomNavigationButton className={classes.buttonNav} disableRipple icon={< SearchIcon />}/>
        <BottomNavigationButton component={Link} to="/notifications" classes={{root:classes.buttonNav, selected:classes.SelectedIcon}}
           disableRipple icon={<Badge badgeContent={numberOfRequests} classes={{badge: numberOfRequests > 0 ? classes.badge:classes.badgeHidden}} color="accent">< NotificationIcon /></Badge>}/>
         <BottomNavigationButton component={Link} to="/duos" className={classes.buttonNav}

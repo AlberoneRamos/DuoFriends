@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form'
 import Button from 'material-ui/Button';
 import {withStyles} from 'material-ui/styles';
 import TextField from '../reduxFormComponents/TextField';
-import {FormControl} from 'material-ui/Form';
 import {createUser} from '../../firebase/auth';
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight';
 

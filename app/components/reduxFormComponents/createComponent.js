@@ -14,6 +14,7 @@ export default function createComponent(MaterialUIComponent, mapProps) {
     }
 
     render() {
+      console.log(this.props);
       return createElement(MaterialUIComponent, {
         ...mapProps(this.props),
         ref: 'component'

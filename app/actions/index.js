@@ -10,8 +10,7 @@ export function getUsers() {
     return (dispatch, getState) => {
         return firebaseRef
             .child(`users/`)
-            .once('value')
-            .then((snapshot) => {
+            .on('value',(snapshot) => {
                 var uid = getState().auth.uid;
                 var users = snapshot.val();
                 var usersArray = users == null
@@ -144,6 +143,32 @@ export function startAcceptRequest(requestId, availabilityId, senderId) {
                 return error;
             })
         });
+    }
+}
+
+export function startRemoveDuoSchedule(scheduleId, duoId) {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        var availabilityRef = firebaseRef.child(`users/${uid}/availability/${scheduleId}`)
+        availabilityRef
+            .once("value")
+            .then((snapshot) => {
+                const snapshotValue = snapshot.val();
+                var updates = {
+                    userId: null,
+                    isFilled: false
+                }
+                firebaseRef.child(`users/${duoId}/availability`).orderByChild('userId').equalTo(uid).once("value").then((snapshot)=>{
+                    const value = snapshot.val();
+                    for(var id in value){
+                        if(JSON.stringify(value[id]) == JSON.stringify({...snapshotValue,userId:uid,isFilled:true})){ 
+                            return availabilityRef.update(updates).then((result) => {
+                                return firebaseRef.child(`users/${duoId}/availability/${id}`).update(updates);
+                            });
+                        }
+                    };
+                })
+                });
     }
 }
 

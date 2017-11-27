@@ -34,7 +34,6 @@ function mapStateToProps(state) {
             
     }}).filter(availability => { return availability.userId != undefined });
     availabilityArray = _.mapValues(_.groupBy(availabilityArray, 'userId'), clist => clist.map(av => _.omit(av, 'userId')));
-    debugger;
     return {
         duos: Object.keys(availabilityArray).map((id)=>{
             return {

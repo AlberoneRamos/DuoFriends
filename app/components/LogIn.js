@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import Input from 'material-ui/Input';
+import Input,{ InputLabel, InputAdornment } from 'material-ui/Input';
+import Visibility from 'material-ui-icons/Visibility';
+import VisibilityOff from 'material-ui-icons/VisibilityOff';
 import Button from 'material-ui/Button';
 import {withRouter} from 'react-router-dom';
 import Typography from 'material-ui/Typography';
 import {Link} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
 import {startLogin} from '../actions';
+import IconButton from 'material-ui/IconButton';
 import {connect} from 'react-redux';
 
 export class LogIn extends Component {
@@ -13,7 +16,8 @@ export class LogIn extends Component {
         super(props);
         this.state = {
             email: "",
-            password: ''
+            password: '',
+            showPassword:false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUserChange = this.handleUserChange.bind(this);
@@ -40,6 +44,13 @@ export class LogIn extends Component {
         this.props.login(email, password);
     }
 
+    handleClickShowPassword(){
+        this.setState({ showPassword: !this.state.showPassword });
+    };
+
+    handleMouseDownPassword(event){
+        event.preventDefault();
+    };
     render() {
         const {classes} = this.props;
         return (
@@ -63,13 +74,23 @@ export class LogIn extends Component {
                     <Input
                         label="Password"
                         placeholder="Password"
-                        type="password"
+                        type={this.state.showPassword ? 'text' : 'password'}
                         classes={{
                             root: classes.textField,
                             focused: classes.focused
                         }}
                         onChange={this.handlePasswordChange}
                         value = {this.state.password}
+                        endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                            onClick={this.handleClickShowPassword.bind(this)}
+                            onMouseDown={this.handleMouseDownPassword}
+                            >
+                            {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                        }
                         margin="normal"/>
                     <Button type="submit" color="primary" raised className={classes.Button}>Log-in</Button>
                 </form>

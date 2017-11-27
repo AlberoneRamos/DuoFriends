@@ -9,15 +9,7 @@ import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
 class User extends Component {
     
     render() {
-        const {
-            id,
-            mainRole,
-            nickName,
-            rank,
-            league,
-            userRating,
-            classes
-        } = this.props;
+        const {dayOfWeek,startingTime,endingTime} = this.props;
         const roleInfo = getRoleInfo(mainRole);
         var imageCode = ((id.match(/\d/g).join("") * 9301 + 49297) % 233280) / 233280;
         imageCode = Math.round(588 + imageCode * (620 - 588));
@@ -30,15 +22,7 @@ class User extends Component {
                         <Avatar className={classes.Avatar} alt={roleInfo[0]} src={roleInfo[1]}></Avatar>
 
                     </ListItemSecondaryAction>
-                    <ListItemText
-                        primary={nickName}
-                        secondary={< span > <StarIcon
-                        className={classes.icon}
-                        style={{
-                        color: '#2ec4b6'
-                    }}/> < span style = {{verticalAlign:'top'}} > {
-                        userRating
-                    } < /span></span >}/>
+                    <ListItemText inset primary={`${schedule.dayOfWeek}, ${schedule.startingTime} - ${schedule.endingTime}`} />
                 </ListItem>
             </Link>
 
