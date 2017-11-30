@@ -12,7 +12,7 @@ import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
 import {connect} from 'react-redux';
 import {startRemoveDuoSchedule} from '../../actions';
-import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
+import {getRoleInfo, getRankImage, getProfileImage} from '../../riotApi/customApi';
 
 export class Duo extends Component {
     constructor(props){
@@ -35,13 +35,11 @@ export class Duo extends Component {
     renderDuos(){
         const { id,rank,league,nickName,mainRole,schedules,classes } = this.props;
         const roleInfo = getRoleInfo(mainRole);
-        var imageCode = ((id.match(/\d/g).join("") * 9301 + 49297) % 233280) / 233280;
-        imageCode = Math.round(588 + imageCode * (620 - 588));
         return(
             <div>
                 <ListItem button onClick={() => {this.toggle()}}>
                     <Link to={`players/${id}`}>
-                        <Avatar alt={rank} src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${imageCode}.png`}></Avatar>
+                        <Avatar alt={rank} src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${getProfileImage(id)}.png`}></Avatar>
                     </Link>
                     <ListItemText primary={nickName}/>
                     {this.state.open ? <ExpandLess className={classes.Expand}/> : <ExpandMore className={classes.Expand}/>}

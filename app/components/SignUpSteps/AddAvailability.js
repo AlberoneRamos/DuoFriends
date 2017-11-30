@@ -4,8 +4,6 @@ import Button from 'material-ui/Button';
 import {withStyles} from 'material-ui/styles';
 import TextField from '../reduxFormComponents/TextField';
 import {FormControl} from 'material-ui/Form';
-import 'react-times/css/material/default.css';
-import TimePicker from 'react-times';
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight';
 import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
 

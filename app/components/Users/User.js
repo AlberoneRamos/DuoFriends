@@ -4,7 +4,7 @@ import Avatar from 'material-ui/Avatar';
 import {Link} from 'react-router-dom';
 import StarIcon from 'material-ui-icons/Star';
 import {withStyles} from 'material-ui/styles';
-import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
+import {getRoleInfo, getRankImage, getProfileImage} from '../../riotApi/customApi';
 
 class User extends Component {
     
@@ -19,13 +19,11 @@ class User extends Component {
             classes
         } = this.props;
         const roleInfo = getRoleInfo(mainRole);
-        var imageCode = ((id.match(/\d/g).join("") * 9301 + 49297) % 233280) / 233280;
-        imageCode = Math.round(588 + imageCode * (620 - 588));
         return (
             <Link to={`players/${id}`}>
                 <ListItem button>
                     <Avatar alt={rank} 
-                    src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${imageCode}.png`}></Avatar>
+                    src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${getProfileImage(id)}.png`}></Avatar>
                     <ListItemSecondaryAction>
                         <Avatar className={classes.Avatar} alt={roleInfo[0]} src={roleInfo[1]}></Avatar>
 

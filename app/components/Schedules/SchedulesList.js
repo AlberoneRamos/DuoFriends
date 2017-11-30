@@ -5,12 +5,12 @@ import Schedule from './Schedule';
 
 export class ScheduleList extends Component {
 
-    renderRequestList() {
+    renderScheduleList() {
         return this
             .props
-            .requests
-            .map((request, index) => {
-                return <Schedule key={index} {...request}/>
+            .schedules
+            .map((schedule, index) => {
+                return <Schedule key={index} {...schedule}/>
             })
 
     }
@@ -19,7 +19,7 @@ export class ScheduleList extends Component {
         return (
             <div>
                 <List>
-                    {this.renderRequestList()}
+                    {this.renderScheduleList()}
                 </List>
             </div>
         );
@@ -28,11 +28,12 @@ export class ScheduleList extends Component {
 
 function mapStateToProps(state) {
     return {
-        availability: Object.keys(state
+        schedules: Object.keys(state
             .availability)
             .map((id) => {
                 return {
-                    ...state.availability[id]
+                    ...state.availability[id],
+                    userInfo: {...state.users.filter((user) => {return state.availability[id].userId == user.id})[0],availability:undefined}
                     }
                 }
             )

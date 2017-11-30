@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
 import Rating from '../generalComponents/Rating';
-import MatchingRequestForm from './MatchingRequestForm';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import { BottomSheet } from 'material-ui-bottom-sheet'
 import HalfStarIcon from 'material-ui-icons/StarHalf';
 import {getRoleInfo, getRankImage, getProfileImage} from '../../riotApi/customApi';
 
-export class SingleUser extends Component {
+export class MyProfile extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +16,7 @@ export class SingleUser extends Component {
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleRequestClose = this.handleRequestClose.bind(this);
     }
-
+    
     
 
     handleClickOpen(){
@@ -30,7 +28,7 @@ export class SingleUser extends Component {
       };
     
     render() {
-        const {classes, nickName, userRating,availability,mainRole,id} = this.props;
+        const {classes, nickName, userRating,mainRole,id} = this.props;
         return (
             <div style={{textAlign:'center'}}>
                 <img src={getRoleInfo(mainRole,"svg")[1]} className={classes.roleImage}/>
@@ -52,10 +50,6 @@ export class SingleUser extends Component {
                     fontWeight: 'bold'
                 }}>{nickName}</Typography>
                 <Rating value={userRating} readOnly className={classes.Rating}/>
-                <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
-                <BottomSheet classes={{paper:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
-                        <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose}/>
-                </BottomSheet>
             </div>
         );
     }
@@ -89,9 +83,6 @@ function styles(theme) {
             zIndex:2,
             height:40
         },
-        BottomSheet:{
-            backgroundColor:'#fff !important'
-        },
         Rating:{
             textAlign:'center',
             marginTop:8
@@ -108,10 +99,8 @@ function styles(theme) {
 
 function mapStateToProps(state, ownProps) {
     return {
-        ...state
-            .users
-            .filter(user => user.id === ownProps.match.params.id)[0]
+        ...state.userInfo
     };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(SingleUser));
+export default connect(mapStateToProps)(withStyles(styles)(MyProfile));

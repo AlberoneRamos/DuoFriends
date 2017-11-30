@@ -19,23 +19,25 @@ module.exports = {
                     loader: "css-loader" // translates CSS into CommonJS
                 }, {
                     loader: "sass-loader" // compiles Sass to CSS
-                }]},
+                }]
+            },
+            {include: /\.json$/, loaders: ["json-loader"]},
+            {
+                test: /\.css$/,
+                    use: [
+                "style-loader",
                 {
-                  test: /\.css$/,
-                      use: [
-                    "style-loader",
-                    {
-                      loader: "css-loader",
-                      options: {
-                        modules: true,
-                        sourceMap: true,
-                        importLoaders: 1,
-                        localIdentName: "[name]--[local]--[hash:base64:8]"
-                      }
-                    },
-                    "postcss-loader" // has separate config, see postcss.config.js nearby
-                  ]
+                    loader: "css-loader",
+                    options: {
+                    modules: true,
+                    sourceMap: true,
+                    importLoaders: 1,
+                    localIdentName: "[name]--[local]--[hash:base64:8]"
+                    }
                 },
+                "postcss-loader" // has separate config, see postcss.config.js nearby
+                ]
+            },
         ]
     },
     devServer:{

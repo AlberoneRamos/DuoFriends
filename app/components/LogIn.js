@@ -87,7 +87,7 @@ export class LogIn extends Component {
                             onClick={this.handleClickShowPassword.bind(this)}
                             onMouseDown={this.handleMouseDownPassword}
                             >
-                            {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                            {this.state.showPassword ? <Visibility /> : <VisibilityOff/>}
                             </IconButton>
                         </InputAdornment>
                         }

@@ -6,11 +6,13 @@ import {Route} from 'react-router-dom';
 import BottomNavigation from './BottomNavigation';
 import UserList from './Users/UserList';
 import NotificationList from './Notifications/NotificationList';
+import SchedulesList from './Schedules/SchedulesList';
 import DuosList from './Duos/DuosList';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Header from './Header';
 import SingleUser from './Users/SingleUser';
+import MyProfile from './Users/MyProfile';
 import AuthenticationWrapper from './generalComponents/AuthenticationWrapper';
 import {withRouter} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
@@ -73,7 +75,9 @@ export class App extends React.Component {
             <Route name="players" exact path='/players' component={AuthenticationWrapper(UserList)}/>
             <Route name="notifications" path='/notifications' component={AuthenticationWrapper(NotificationList)}/>
             <Route name="duos" path='/duos' component={AuthenticationWrapper(DuosList)}/>
+            <Route name="schedules" path='/schedules' component={AuthenticationWrapper(SchedulesList)}/>
             <Route name="singleUser" path='/players/:id' component={AuthenticationWrapper(SingleUser)}/>
+            <Route name="myProfile" path='/profile' component={AuthenticationWrapper(MyProfile)}/>
           {currentPath == '/' || currentPath == '/signup' ? null : <BottomNavigation /> }
       </div>
         );

@@ -103,13 +103,50 @@ export function addUserInfo(userInfo) {
         type: types.ADD_USER_INFO,
         payload: {
             ...userInfo[0],
-            availability:null,
-            requests:null
+            availability:undefined,
+            requests:undefined
         }
     };
 }
 
 export function startAcceptRequest(requestId, availabilityId, senderId) {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        var availabilityRef = firebaseRef.child(`users/${uid}/availability/${availabilityId}`)
+        availabilityRef.once("value").then((snapshot)=>{
+            var updates ={
+                ...snapshot.val(),
+                userId: senderId,
+                isFilled: true
+            }
+            firebaseRef.child(`users/${senderId}/availability`).push({...updates,userId: uid});
+            return availabilityRef
+            .update(updates)
+            .then((result) => {
+                return firebaseRef
+                    .child(`users/${uid}/requests`)
+                    .once("value")
+                    .then((snapshot) => {
+                        snapshot
+                            .forEach(function (data) {
+                                var record = data.val();
+                                if (record["availabilityId"] == availabilityId) {
+                                    firebaseRef
+                                        .child(`users/${uid}/requests`)
+                                        .child(data.key)
+                                        .remove();
+                                }
+                            });
+                    })
+            }, (error) => {
+                dispatch(broadcastErrorMessage(error.message));
+                return error;
+            })
+        });
+    }
+}
+
+export function startEditSchedule(dayOfWeek,startingTime,endingTime,id) {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         var availabilityRef = firebaseRef.child(`users/${uid}/availability/${availabilityId}`)

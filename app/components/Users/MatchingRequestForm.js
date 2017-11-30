@@ -87,7 +87,8 @@ export class MatchingRequestForm extends Component{
 
             return Object.keys(availability).map((weekday)=>{
                 return <div key={weekday}>
-                    <Typography type="subheading">{weekday}</Typography>
+                    {availability[weekday].filter(av => !av.isFilled).length > 0 && <Typography type="subheading">{weekday}</Typography>
+                    }
                     {availability[weekday].map((availabilityHours,index)=>{
                         if(!availabilityHours.isFilled)
                             return <ToggleButton key={availabilityHours.id} toggled={this.state.availability[availabilityHours.id].toggled} onClick={this.handleToggle.bind(this,availabilityHours.id)}>{`${availabilityHours.startingTime} - ${availabilityHours.endingTime}`}</ToggleButton>

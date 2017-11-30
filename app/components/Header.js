@@ -52,11 +52,11 @@ export class Header extends Component{
         </div>
         <Divider style={{backgroundColor:"#0f1015",height:2}}/>
         <List>
-          <ListItem button>
+          <ListItem component={Link}  onClick={() => {this.toggleDrawer()} } to="/profile"  button>
             <UserIcon className={classes.sidebarIcons}/>
             <ListItemText primary="My profile"/>
           </ListItem>
-          <ListItem button>
+          <ListItem component={Link}  onClick={() => {this.toggleDrawer()} } to="/schedules" button>
             <SchedulesIcon className={classes.sidebarIcons}/>
             <ListItemText primary="My schedules"/>
           </ListItem>
