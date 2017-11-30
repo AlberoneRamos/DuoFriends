@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     entry: ['./app/index'],
@@ -13,6 +14,22 @@ module.exports = {
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
+        }),
+        new webpack.optimize.DedupePlugin(), //dedupe similar code 
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true,   // enable source maps to map errors (stack traces) to modules
+          output: {
+            comments: false, // remove all comments
+          },
+        }),
+        new webpack.optimize.AggressiveMergingPlugin(),//Merge chunks 
+        new CompressionPlugin({ 
+          asset: "[path].gz[query]",
+          algorithm: "gzip",
+          test: /\.js$|\.css$|\.html$/,
+          threshold: 10240,
+          minRatio: 0.8
         })
     ],
 
