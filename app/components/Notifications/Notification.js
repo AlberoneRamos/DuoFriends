@@ -19,7 +19,7 @@ class Notification extends Component {
             <div>
                 <ListItem disableRipple button>
                     <Link to={`player/${senderInfo.id}`}>
-                        <Avatar alt={senderInfo.rank} src={getRankImage(senderInfo.league)}></Avatar>
+                        <Avatar alt={senderInfo.rank} src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${getProfileImage(senderInfo.id)}.png`}></Avatar>
                     </Link>
                     <ListItemText
                         primary={`${dayOfWeek}, at ${startingTime} - ${endingTime}`}

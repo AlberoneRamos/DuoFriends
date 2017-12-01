@@ -1,5 +1,6 @@
 import firebase, {firebaseRef, facebookProvider} from '../firebase/';
 import {authenticate, SignOut} from '../firebase/auth';
+import moment from 'moment';
 import * as types from './types';
 
 export function addUsers(users) {
@@ -149,38 +150,92 @@ export function startAcceptRequest(requestId, availabilityId, senderId) {
 export function startEditSchedule(dayOfWeek,startingTime,endingTime,id) {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        var availabilityRef = firebaseRef.child(`users/${uid}/availability/${availabilityId}`)
-        availabilityRef.once("value").then((snapshot)=>{
-            var updates ={
-                ...snapshot.val(),
-                userId: senderId,
-                isFilled: true
+        const weekDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        var availabilities = getState().availability;
+        for (var id in availabilities) {
+            const startAv = moment().set({'hours': availabilities[id].startingTime.split(':')[0],'minutes': availabilities[id].startingTime.split(':')[1],'days': weekDays.indexOf(availabilities[id].dayOfWeek)});
+            const endingAv = moment().set({'hours': availabilities[id].endingTime.split(':')[0],'minutes': availabilities[id].endingTime.split(':')[1],'days': weekDays.indexOf(availabilities[id].dayOfWeek)});
+            const endingMoment = moment().set({'hours':endingTime.split(':')[0],'minutes':endingTime.split(':')[1],'days': weekDays.indexOf(dayOfWeek)});
+            const startingMoment = moment().set({ 'hours':startingTime.split(':')[0],'minutes':startingTime.split(':')[1],'days': weekDays.indexOf(dayOfWeek)});
+            if(endingMoment.isBetween(startAv,endingAv,null,"[]")){
+                return dispatch(broadcastErrorMessage('Ending time is between another schedule!'));
+            } else if(startingMoment.isBetween(startAv,endingAv,null,"[]")){
+                return dispatch(broadcastErrorMessage('Starting time is between another schedule!'));
             }
-            firebaseRef.child(`users/${senderId}/availability`).push({...updates,userId: uid});
-            return availabilityRef
-            .update(updates)
-            .then((result) => {
-                return firebaseRef
-                    .child(`users/${uid}/requests`)
-                    .once("value")
-                    .then((snapshot) => {
-                        snapshot
-                            .forEach(function (data) {
-                                var record = data.val();
-                                if (record["availabilityId"] == availabilityId) {
-                                    firebaseRef
-                                        .child(`users/${uid}/requests`)
-                                        .child(data.key)
-                                        .remove();
+        }
+        return firebaseRef.child(`users/${uid}/availability/${id}`).update({dayOfWeek,startingTime,endingTime}).then((result)=>{
+            dispatch(broadcastSuccessMessage("Schedule successfully edited!"));
+        }, (error) => {
+            dispatch(broadcastErrorMessage(error.message));
+            return error;
+        });
+        
+    }
+}
+
+export function startAddSchedule(dayOfWeek,startingTime,endingTime) {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        const weekDays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        var availabilities = getState().availability;
+        for (var id in availabilities) {
+            const startAv = moment().set({'hours': availabilities[id].startingTime.split(':')[0],'minutes': availabilities[id].startingTime.split(':')[1],'days': weekDays.indexOf(availabilities[id].dayOfWeek)});
+            const endingAv = moment().set({'hours': availabilities[id].endingTime.split(':')[0],'minutes': availabilities[id].endingTime.split(':')[1],'days': weekDays.indexOf(availabilities[id].dayOfWeek)});
+            const endingMoment = moment().set({'hours':endingTime.split(':')[0],'minutes':endingTime.split(':')[1],'days': weekDays.indexOf(dayOfWeek)});
+            const startingMoment = moment().set({ 'hours':startingTime.split(':')[0],'minutes':startingTime.split(':')[1],'days': weekDays.indexOf(dayOfWeek)});
+            if(endingMoment.isBetween(startAv,endingAv,null,"[]")){
+                return dispatch(broadcastErrorMessage('Ending time is between another schedule!'));
+            } else if(startingMoment.isBetween(startAv,endingAv,null,"[]")){
+                return dispatch(broadcastErrorMessage('Starting time is between another schedule!'));
+            }
+        }
+        return firebaseRef.child(`users/${uid}/availability`).push({dayOfWeek,startingTime,endingTime}).then((result)=>{
+            dispatch(broadcastSuccessMessage("Schedule successfully added!"));
+        }, (error) => {
+            dispatch(broadcastErrorMessage(error.message));
+            return error;
+        });
+        
+    }
+}
+
+export function startRemoveSchedule(scheduleId, duoId) {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        console.log(scheduleId, duoId);
+        if(duoId){
+            var availabilityRef = firebaseRef.child(`users/${uid}/availability/${scheduleId}`)
+            availabilityRef
+                .once("value")
+                .then((snapshot) => {
+                    const snapshotValue = snapshot.val();
+                    var updates = {
+                        userId: null,
+                        isFilled: false
+                    }
+                    firebaseRef
+                        .child(`users/${duoId}/availability`).orderByChild('userId').equalTo(uid).once("value")
+                        .then((snapshot) => {
+                            const value = snapshot.val();
+                            for (var id in value) {
+                                if (JSON.stringify(value[id]) == JSON.stringify({
+                                    ...snapshotValue,
+                                    userId: uid,
+                                    isFilled: true
+                                })) {
+                                    firebaseRef.child(`users/${duoId}/availability/${id}`).update(updates);
                                 }
-                            });
-                    })
-            }, (error) => {
-                dispatch(broadcastErrorMessage(error.message));
-                return error;
-            })
+                            };
+                        })
+                });
+        } 
+        return firebaseRef.child(`users/${uid}/availability/${scheduleId}`).remove().then((result)=>{
+            dispatch(broadcastSuccessMessage('Schedule successfully deleted!'));
+        },(error)=>{
+            dispatch(broadcastErrorMessage(error.message));
         });
     }
+        
 }
 
 export function startRemoveDuoSchedule(scheduleId, duoId) {

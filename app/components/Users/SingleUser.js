@@ -5,8 +5,9 @@ import Rating from '../generalComponents/Rating';
 import MatchingRequestForm from './MatchingRequestForm';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
+import Avatar from 'material-ui/Avatar';
 import { BottomSheet } from 'material-ui-bottom-sheet'
-import HalfStarIcon from 'material-ui-icons/StarHalf';
 import {getRoleInfo, getRankImage, getProfileImage} from '../../riotApi/customApi';
 
 export class SingleUser extends Component {
@@ -19,18 +20,16 @@ export class SingleUser extends Component {
         this.handleRequestClose = this.handleRequestClose.bind(this);
     }
 
-    
-
     handleClickOpen(){
         this.setState({ open: true });
       };
     
-      handleRequestClose(){
-        this.setState({ open: false });
-      };
+    handleRequestClose(){
+    this.setState({ open: false });
+    };
     
     render() {
-        const {classes, nickName, userRating,availability,mainRole,id} = this.props;
+        const {classes, nickName, userRating,availability, mainRole, id, rank, league, playStyle} = this.props;
         return (
             <div style={{textAlign:'center'}}>
                 <img src={getRoleInfo(mainRole,"svg")[1]} className={classes.roleImage}/>
@@ -53,6 +52,10 @@ export class SingleUser extends Component {
                 }}>{nickName}</Typography>
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
+                <Grid style={{margin:"0px",width:"100%"}} container>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={getRankImage(league)}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{`${league.charAt(0).toUpperCase() + league.slice(1).toLowerCase()} ${rank}`}</Typography></Grid>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={`/images/playstyle${playStyle}.png`}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{playStyle == 1 ? "Casual" : "Competitive"}</Typography></Grid>
+                </Grid>
                 <BottomSheet classes={{paper:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
                         <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose}/>
                 </BottomSheet>

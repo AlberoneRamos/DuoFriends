@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import ToggleStar from 'material-ui-icons/Star';
 import ToggleStarBorder from 'material-ui-icons/StarBorder';
+import HalfStarIcon from 'material-ui-icons/StarHalf';
 
 const styles = {
     editable: {

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import List from 'material-ui/List';
 import Input,{InputAdornment} from 'material-ui/Input';
 import Select from 'material-ui/Select';
+import Grid from 'material-ui/Grid';
 import User from './User';
 import SearchIcon from 'material-ui-icons/Search';
 import FilterIcon from 'material-ui-icons/FilterList';
@@ -72,36 +73,50 @@ export class UserList extends Component {
         return (
             <div>
                 <div style={{backgroundColor:"#0f1015"}}>
-                    <Input startAdornment={
-                        <InputAdornment position="start"  className={classes.iconCenter}>
-                            <SearchIcon/>
-                        </InputAdornment>
-                        } name="playername" placeholder="Player name..." onChange={(e)=>{this.handleChangeSearch('playername',e)}} disableUnderline style={{width: '75vw', marginRight:"0px !important"}} value={this.state.search.playername} classes={{root:classes.searchInput,focused:classes.searchInput,input:classes.input}} />
-                    <IconButton onClick={()=>{this.toggleAdvancedFilter()}}>
-                        <FilterIcon className={this.state.open ? classes.advancedSearchOpen : {}}/>
-                    </IconButton>
+                    <Grid container alignItems="center" justify="center" spacing={16} style={{width:'100vw',margin:'0px'}}>
+                        <Grid item xs={10}>
+                        <Input fullWidth startAdornment={
+                            <InputAdornment position="start"  className={classes.iconCenter}>
+                                <SearchIcon/>
+                            </InputAdornment>
+                            } name="playername" placeholder="Player name..." onChange={(e)=>{this.handleChangeSearch('playername',e)}} disableUnderline value={this.state.search.playername} classes={{root:classes.searchInput,focused:classes.searchInput,input:classes.input}} />
+                        </Grid>
+                        <Grid item xs={2}>
+                        <IconButton onClick={()=>{this.toggleAdvancedFilter()}}>
+                            <FilterIcon className={this.state.open ? classes.advancedSearchOpen : {}}/>
+                        </IconButton>
+                        </Grid>
+                    </Grid>
                 <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-                        <Select style={{width:'24vw'}} name="role" value={this.state.search.roles} onChange={(e)=>{this.handleChangeSearch('roles',e)}} multiple disableUnderline className={classes.multipleSelect}>
-                            {roles.map(role => (
-                                <MenuItem key={role} value={roles.indexOf(role)+1}>
-                                    {role}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        <Select style={{width:'24vw'}} name="rank" value={this.state.search.ranks} onChange={(e)=>{this.handleChangeSearch('ranks',e)}} multiple disableUnderline className={classes.multipleSelect}>
-                            {ranks.map(rank => (
-                                <MenuItem key={rank} value={rank.toUpperCase()}>
-                                    {rank}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        <Select style={{width:'24vw'}} name="playstyle" value={this.state.search.playstyles} onChange={(e)=>{this.handleChangeSearch('playstyles',e)}} multiple disableUnderline className={classes.multipleSelect}>
-                            {playstyles.map(playstyle => (
-                                <MenuItem key={playstyle} value={playstyles.indexOf(playstyle)+1}>
-                                    {playstyle}
-                                </MenuItem>
-                            ))}
-                        </Select>
+                        <Grid style={{padding: "8px 8px"}} container alignItems="center" justify="center" spacing={16}>
+                            <Grid item xs>
+                                <Select name="role" value={this.state.search.roles} onChange={(e)=>{this.handleChangeSearch('roles',e)}} multiple disableUnderline className={classes.multipleSelect}>
+                                    {roles.map(role => (
+                                        <MenuItem key={role} value={roles.indexOf(role)+1}>
+                                            {role}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </Grid>
+                            <Grid item xs>
+                                <Select name="rank" value={this.state.search.ranks} onChange={(e)=>{this.handleChangeSearch('ranks',e)}} multiple disableUnderline className={classes.multipleSelect}>
+                                    {ranks.map(rank => (
+                                        <MenuItem key={rank} value={rank.toUpperCase()}>
+                                            {rank}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </Grid>
+                            <Grid item xs>
+                                <Select name="playstyle" value={this.state.search.playstyles} onChange={(e)=>{this.handleChangeSearch('playstyles',e)}} multiple disableUnderline className={classes.multipleSelect}>
+                                    {playstyles.map(playstyle => (
+                                        <MenuItem key={playstyle} value={playstyles.indexOf(playstyle)+1}>
+                                            {playstyle}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </Grid>
+                        </Grid>
                 </Collapse>
                 </div>
                 <List style={{paddingBottom:'8vh'}}>
@@ -126,10 +141,8 @@ function mapDispatchToProps(dispatch){
 
 const styles = theme => ({
     searchInput:{
-        marginLeft: theme.spacing.unit,
         padding:'0px 8px 0px 8px !important',
         borderRadius: '20px',
-        margin:'8px 8px',
         backgroundColor: theme.palette.secondary[400],
         '&:before':{
             content: 'none'
@@ -137,16 +150,13 @@ const styles = theme => ({
         alignItems: 'center',
     },
     multipleSelect:{
-        marginLeft: theme.spacing.unit,
-        padding:'0px 8px 0px 8px !important',
         borderRadius: '20px',
-        margin:'8px 8px',
         backgroundColor: theme.palette.secondary[400],
         '&:before':{
             content: 'none'
         },
+        width:'100%',
         alignItems: 'center',
-        width: '25vw',
         display: 'inline-block',
         alignSelf: 'center',
     },

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Select from 'material-ui/Select';
-import Dialog, {DialogActions, DialogContent, DialogContentText, DialogTitle, withMobileDialog} from 'material-ui/Dialog';
+import Dialog, {DialogActions, DialogContent, DialogContentText, DialogTitle} from 'material-ui/Dialog';
 import {withStyles} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import TimeInput from 'material-ui-time-picker';
@@ -10,7 +10,7 @@ import Grid from 'material-ui/Grid';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import Button from 'material-ui/Button';
-import {startEditSchedule,broadcastErrorMessage, broadcastSuccessMessage} from '../../actions';
+import {startEditSchedule, broadcastErrorMessage, broadcastSuccessMessage, startAddSchedule} from '../../actions';
 import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
 
 class ScheduleDialog extends Component {
@@ -19,12 +19,12 @@ class ScheduleDialog extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
         this.requestEditSchedule = this.requestEditSchedule.bind(this);
-        const startingTime = props.startingTime.split(':');
-        const endingTime = props.endingTime.split(':');
+        const startingTime = props.startingTime ? moment().set({'hours':props.startingTime.split(':')[0],'minutes':props.startingTime.split(':')[1]}).toDate() : new Date();
+        const endingTime = props.endingTime ? moment().set({'hours':props.endingTime.split(':')[0],'minutes':props.endingTime.split(':')[1]}).toDate() : moment().add(1,'hours').toDate();
         this.state ={
-            weekDay: props.dayOfWeek,
-            startingTime: moment().set({'hours':startingTime[0],'minutes':startingTime[1]}).toDate(),
-            endingTime: moment().set({'hours':endingTime[0],'minutes':endingTime[1]}).toDate(),
+            weekDay: props.dayOfWeek ? props.dayOfWeek : 'Sunday',
+            startingTime,
+            endingTime,
 
         }
     }
@@ -42,21 +42,22 @@ class ScheduleDialog extends Component {
     }
 
     requestEditSchedule(){
-        const {startingTime, endingTime} = this.state;
-        console.log(startingTime, endingTime);
+        const {startingTime, endingTime,weekDay} = this.state;
         if(startingTime >= endingTime){
             this.props.errorMessage("Time traveling isn't supported yet!");
-            this.setState({
-                open:true
-            })
+        } else{
+            if(this.props.edit)
+                this.props.editSchedule(weekDay,moment(startingTime).format('HH:mm'),moment(endingTime).format('HH:mm'));
+            else
+                this.props.addSchedule(weekDay,moment(startingTime).format('HH:mm'),moment(endingTime).format('HH:mm'));
         }
     }
 
     render() {
-        const {dayOfWeek,startingTime,endingTime, classes,title,handleRequestClose} = this.props; 
+        const {dayOfWeek,startingTime,endingTime, classes,title,handleRequestClose,edit} = this.props; 
         const weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         return (
-                <Dialog classes={{paper: classes.root}}  open={this.props.open | this.state.open} onRequestClose={handleRequestClose}>
+                <Dialog open={this.props.open} onRequestClose={handleRequestClose}>
                     <DialogTitle>{title}</DialogTitle>
                     <DialogContent className={classes.content}>
                     <Grid container justify="center" >
@@ -79,9 +80,8 @@ class ScheduleDialog extends Component {
                         <Button onClick={handleRequestClose} color="primary">
                         Cancel
                         </Button>
-                        <Button onClick={this.requestEditSchedule} color="primary">
-                        Subscribe
-                        </Button>
+                        <Button onClick={this.requestEditSchedule} color="primary">{edit ? "Save":"Add"}</Button>
+                        
                     </DialogActions>
                 </Dialog>
         );
@@ -89,9 +89,6 @@ class ScheduleDialog extends Component {
 }
 
 const styles = theme => ({
-    root: {
-        backgroundColor: theme.palette.secondary[500]
-    },
     formControl:{
         display: 'flex',
         justifyContent: 'center'
@@ -108,7 +105,8 @@ const styles = theme => ({
 
 function mapDispatchToProps(dispatch, ownProps){
     return{
-        editSchedule: (startingTime,endingTime) => dispatch(startEditSchedule(ownProps.dayOfWeek,startingTime,endingTime,ownProps.id)),
+        editSchedule: (dayOfWeek,startingTime,endingTime) => dispatch(startEditSchedule(dayOfWeek,startingTime,endingTime,ownProps.id)),
+        addSchedule: (dayOfWeek,startingTime,endingTime) => dispatch(startAddSchedule(dayOfWeek,startingTime,endingTime,ownProps.id)),
         errorMessage: (message) => dispatch(broadcastErrorMessage(message)),
         successMessage: (message) => dispatch(broadcastSuccessMessage(message)),
     }

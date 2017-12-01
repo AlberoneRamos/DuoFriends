@@ -4,6 +4,8 @@ import {withStyles} from 'material-ui/styles';
 import Rating from '../generalComponents/Rating';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
+import Avatar from 'material-ui/Avatar';
 import HalfStarIcon from 'material-ui-icons/StarHalf';
 import {getRoleInfo, getRankImage, getProfileImage} from '../../riotApi/customApi';
 
@@ -28,9 +30,9 @@ export class MyProfile extends Component {
       };
     
     render() {
-        const {classes, nickName, userRating,mainRole,id} = this.props;
+        const {classes, nickName, userRating,mainRole,id,rank,league,playStyle} = this.props;
         return (
-            <div style={{textAlign:'center'}}>
+            <div className={classes.root}>
                 <img src={getRoleInfo(mainRole,"svg")[1]} className={classes.roleImage}/>
                 <div
                     style={{
@@ -50,6 +52,11 @@ export class MyProfile extends Component {
                     fontWeight: 'bold'
                 }}>{nickName}</Typography>
                 <Rating value={userRating} readOnly className={classes.Rating}/>
+                <Button color="primary" raised className={classes.Button}>Edit Profile</Button>
+                <Grid style={{margin:"0px",width:"100%"}} container>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={getRankImage(league)}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{`${league.charAt(0).toUpperCase() + league.slice(1).toLowerCase()} ${rank}`}</Typography></Grid>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={`/images/playstyle${playStyle}.png`}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{playStyle == 1 ? "Casual" : "Competitive"}</Typography></Grid>
+                </Grid>
             </div>
         );
     }
@@ -57,6 +64,9 @@ export class MyProfile extends Component {
 
 function styles(theme) {
     return ({
+        root:{
+            textAlign: 'center',
+        },
         MainCharacter: {
             background: "url('http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Rakan_0.jpg')",
             width: '100%',
