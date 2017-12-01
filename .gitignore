@@ -1,5 +1,6 @@
 node_modules/
 app/tests/
+public/bundle.js.gz
 public/bundle.js
 public/bundle.js.map
 config/
