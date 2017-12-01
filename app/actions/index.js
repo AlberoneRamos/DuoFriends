@@ -202,7 +202,6 @@ export function startAddSchedule(dayOfWeek,startingTime,endingTime) {
 export function startRemoveSchedule(scheduleId, duoId) {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        console.log(scheduleId, duoId);
         if(duoId){
             var availabilityRef = firebaseRef.child(`users/${uid}/availability/${scheduleId}`)
             availabilityRef

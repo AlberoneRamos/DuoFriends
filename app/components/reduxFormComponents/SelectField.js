@@ -12,7 +12,6 @@ export default createComponent(Select, ({
   value: value,
   onChange: (event, index, value) => {
     onChange(value)
-    console.log(value);
     if (onChangeFromField) {
       onChangeFromField(value)
     }
