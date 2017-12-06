@@ -51,10 +51,6 @@ export class UserList extends Component {
         this.props.getUsers();
     }
 
-    submit(values){
-        console.log(values);
-    }
-
     handleChangeSearch(searchParameter,e){
         e.preventDefault();
         this.setState({
@@ -81,7 +77,7 @@ export class UserList extends Component {
                             </InputAdornment>
                             } name="playername" placeholder="Player name..." onChange={(e)=>{this.handleChangeSearch('playername',e)}} disableUnderline value={this.state.search.playername} classes={{root:classes.searchInput,focused:classes.searchInput,input:classes.input}} />
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={2}  style={{textAlign:'center'}}>
                         <IconButton onClick={()=>{this.toggleAdvancedFilter()}}>
                             <FilterIcon className={this.state.open ? classes.advancedSearchOpen : {}}/>
                         </IconButton>

@@ -5,6 +5,7 @@ import VisibilityOff from 'material-ui-icons/VisibilityOff';
 import Button from 'material-ui/Button';
 import {withRouter} from 'react-router-dom';
 import Typography from 'material-ui/Typography';
+import Grid from 'material-ui/Grid';
 import {Link} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
 import {startLogin} from '../actions';
@@ -56,13 +57,16 @@ export class LogIn extends Component {
         return (
             <div className={classes.container} style={{
                 height: '100vh',}}>
-                <form className={classes.container} style={{
-                background:'transparent'}}
-                    onSubmit={this.handleSubmit}>
-                    <img src="/images/ChallengerOutline.svg" width="200" style={{marginBottom:56}}/>
+                <form onSubmit={this.handleSubmit}>
+                <Grid style={{margin:0,width:'100%'}} container justify="center" alignItems="center">
+                    <Grid item xs={10} style={{textAlign:'center'}}>
+                        <img src="/images/ChallengerOutline.svg" width="200"/>
+                    </Grid>
+                    <Grid item xs={10} >
                     <Input
                         label="E-mail"
                         placeholder="E-mail"
+                            fullWidth
                         classes={{
                             root: classes.textField,
                             focused: classes.focused
@@ -71,9 +75,15 @@ export class LogIn extends Component {
                         value = {this.state.email}
                         onChange={this.handleUserChange}
                         margin="normal"/>
+                        
+                        
+                        
+                    </Grid>
+                    <Grid item xs={10}>
                     <Input
                         label="Password"
                         placeholder="Password"
+                            fullWidth
                         type={this.state.showPassword ? 'text' : 'password'}
                         classes={{
                             root: classes.textField,
@@ -92,8 +102,14 @@ export class LogIn extends Component {
                         </InputAdornment>
                         }
                         margin="normal"/>
+                    </Grid>  
+                    <Grid item xs={10}>
                     <Button type="submit" color="primary" raised className={classes.Button}>Log-in</Button>
+                    </Grid>
+                    <Grid item xs={10} style={{textAlign:'center'}}>
                     <Typography> Don't have an account? <Link to="/signup"style={{textDecoration:'underline',color:'#fafafa'}}>Register!</Link></Typography>
+                    </Grid>
+                </Grid>
                 </form>
             </div>
         );
@@ -112,9 +128,6 @@ const styles = theme => ({
         backgroundRepeat: 'no-repeat'
     },
     textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: '80vw',
         color: '#fafafa',
         "&:before": {
             backgroundColor: '#fafafa'
@@ -122,20 +135,16 @@ const styles = theme => ({
         "&:placeholder": {
             color: '#fafafa'
         },
-        margin: '15px'
     },
     focused: {
         "&:after": {
             backgroundColor: theme.palette.primary[500]
         }
     },
-    menu: {
-        width: '80vw'
-    },
     Button:{
+        width:"100%",
         fontWeight:'600',
         marginTop:32,
-        width:'80vw',
         borderRadius:'50px',
         boxShadow:'none',
         color:"#fafafa",
