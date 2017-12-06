@@ -8,7 +8,7 @@ import CheckIcon from 'material-ui-icons/Check';
 import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
 import {startAcceptRequest,startDeclineRequest} from '../../actions';
-import {getRoleInfo, getRankImage} from '../../riotApi/customApi';
+import {getRoleInfo, getRankImage, getProfileImage} from '../../riotApi/customApi';
 
 class Notification extends Component {
 

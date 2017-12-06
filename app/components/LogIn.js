@@ -93,7 +93,7 @@ export class LogIn extends Component {
                         }
                         margin="normal"/>
                     <Button type="submit" color="primary" raised className={classes.Button}>Log-in</Button>
-                    <Typography> Doesn't have an account? <Link to="/signup"style={{textDecoration:'underline',color:'#fafafa'}}>Register!</Link></Typography>
+                    <Typography> Don't have an account? <Link to="/signup"style={{textDecoration:'underline',color:'#fafafa'}}>Register!</Link></Typography>
                 </form>
             </div>
         );
