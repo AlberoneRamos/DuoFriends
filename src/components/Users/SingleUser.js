@@ -54,7 +54,7 @@ export class SingleUser extends Component {
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
                 <Grid style={{margin:"0px",width:"100%"}} container>
                     <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={getRankImage(league)}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{`${league.charAt(0).toUpperCase() + league.slice(1).toLowerCase()} ${rank}`}</Typography></Grid>
-                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={`../assets/images/playstyle${playStyle}.png`}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{playStyle === 1 ? "Casual" : "Competitive"}</Typography></Grid>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={`/images/playstyle${playStyle}.png`}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{playStyle === 1 ? "Casual" : "Competitive"}</Typography></Grid>
                 </Grid>
                 <BottomSheet classes={{paper:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
                         <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose}/>

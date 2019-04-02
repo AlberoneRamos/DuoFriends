@@ -1,5 +1,5 @@
 export function getRoleInfo(roleNumber,format = "png") {
-    var path = "../assets/images/";
+    var path = "/images/";
     var roles = [
         "Top",
         "Mid",
@@ -15,7 +15,7 @@ export function getRoleInfo(roleNumber,format = "png") {
 }
 
 export function getRankImage(rankName) {
-    return `../images/${rankName}_SUMMONER.jpg`;
+    return `/images/${rankName}_SUMMONER.jpg`;
 }
 
 export function getProfileImage(id){

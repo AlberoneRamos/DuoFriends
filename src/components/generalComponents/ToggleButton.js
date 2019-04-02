@@ -10,15 +10,12 @@ export class ToggleButton extends Component {
 
 
     render() {
-        const {classes, children, toggled} = this.props;
-        this.setState({
-            toggled: toggled
-        });
+        const {classes, children,onClick} = this.props;
         return (
             <Button disableRipple
                 classes={{root:this.props.toggled
                 ? classes.toggled
-                : classes.root}} onClick={this.props.onClick}>{children}</Button>
+                : classes.root}} onClick={onClick}>{children}</Button>
         );
     }
 }

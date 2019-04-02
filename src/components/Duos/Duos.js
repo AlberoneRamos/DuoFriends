@@ -5,9 +5,8 @@ import {Link} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-import ClearIcon from 'material-ui-icons/Clear';
 import Collapse from 'material-ui/transitions/Collapse';
-import IconButton from 'material-ui/IconButton';
+import Schedule from './Schedule';
 import {connect} from 'react-redux';
 import {startRemoveDuoSchedule} from '../../actions';
 import {getProfileImage} from '../../riotApi/customApi';
@@ -18,8 +17,6 @@ export class Duo extends Component {
         this.state = {
             open:false
         }
-        this.renderDuos = this.renderDuos.bind(this);
-        this.renderSchedules = this.renderSchedules.bind(this);
         this.toggle = this.toggle.bind(this);
     }
 
@@ -30,7 +27,7 @@ export class Duo extends Component {
         });
     }
 
-    renderDuos(){
+    render() {
         const { id,rank,nickName,schedules,classes } = this.props;
         return(
             <div>
@@ -42,34 +39,8 @@ export class Duo extends Component {
                     {this.state.open ? <ExpandLess className={classes.Expand}/> : <ExpandMore className={classes.Expand}/>}
                 </ListItem>
                 <Collapse className={classes.collapseText} in={this.state.open} transitionDuration="auto" unmountOnExit>
-                    {this.renderSchedules(schedules)}
+                    {schedules.map((schedule,index)=> <Schedule {...schedule} key={index} duoId={id}/>)}
                 </Collapse>
-            </div>
-        );
-    }
-
-    renderSchedules(schedules){
-        const {classes} = this.props;
-        return schedules.map((schedule,index)=>{
-            return(
-                    <ListItem key={index}>
-                        <ListItemText inset primary={`${schedule.dayOfWeek}, ${schedule.startingTime} - ${schedule.endingTime}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton className={classes.removeIcon} onClick={()=>{this.removeSchedule(schedule.id)}} color="primary"><ClearIcon/></IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
-            );
-        });
-    }
-
-    removeSchedule(id){
-        this.props.removeDuoSchedule(id)
-    }
-
-    render() {
-        return (
-            <div>
-                {this.renderDuos()}
             </div>
         );
     }

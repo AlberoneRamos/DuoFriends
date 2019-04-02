@@ -61,17 +61,17 @@ class Schedule extends Component {
                     <ListItemText inset primary={`${dayOfWeek}, ${startingTime} - ${endingTime}`} secondary={isFilled ? `Duo: ${userInfo.nickName}` : ''}/>
                     <ScheduleDialog edit dayOfWeek={dayOfWeek} startingTime={startingTime} endingTime={endingTime} id={id} title={"Edit Schedule"} handleRequestClose={this.handleRequestClose} open={this.state.open}/>
                     <Dialog  open={this.state.deleteDialog} onRequestClose={this.handleCloseDeleteDialog}>
-                    <DialogTitle>Deletar</DialogTitle>
-                    <DialogContent>
-                        <Typography>
-                            {`Are you sure that you want to delete your schedule on ${dayOfWeek}, ${startingTime} - ${endingTime}?`}
-                        </Typography>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleCloseDeleteDialog} color="primary">Cancel</Button>
-                        <Button onClick={this.handleDelete} color="accent">Delete</Button>
-                    </DialogActions>
-                </Dialog>
+                        <DialogTitle>Delete Schedule</DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                {`Are you sure that you want to delete your schedule on ${dayOfWeek}, ${startingTime} - ${endingTime}?`}
+                            </Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleCloseDeleteDialog} color="primary">Cancel</Button>
+                            <Button onClick={this.handleDelete} color="accent">Delete</Button>
+                        </DialogActions>
+                    </Dialog>
                 </ListItem>
 
         );

@@ -11,8 +11,6 @@ import {withStyles} from 'material-ui/styles';
 import {startLogin} from '../actions';
 import IconButton from 'material-ui/IconButton';
 import {connect} from 'react-redux';
-import Background from '../assets/images/Background.png';
-import Logo from '../assets/images/ChallengerOutline.svg';
 
 export class LogIn extends Component {
     constructor(props){
@@ -62,7 +60,7 @@ export class LogIn extends Component {
                 <form onSubmit={this.handleSubmit}>
                 <Grid style={{margin:0,width:'100%'}} container justify="center" alignItems="center">
                     <Grid item xs={10} style={{textAlign:'center'}}>
-                        <img src={Logo} alt={"logo"} width="200"/>
+                        <img src={"/images/ChallengerOutline.svg"} alt={"logo"} width="200"/>
                     </Grid>
                     <Grid item xs={10} >
                     <Input
@@ -125,7 +123,7 @@ const styles = theme => ({
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'center',
-        background: `url(${Background})`,
+        background: 'url(/images/Background.png)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
     },

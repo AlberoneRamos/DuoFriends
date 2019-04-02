@@ -7,7 +7,7 @@ import ClearIcon from 'material-ui-icons/Clear';
 import CheckIcon from 'material-ui-icons/Check';
 import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
-import {startAcceptRequest,startDeclineRequest} from '../../actions';
+import {startAcceptRequest,startDeclineRequest, broadcastSuccessMessage, broadcastErrorMessage} from '../../actions';
 import {getRoleInfo, getProfileImage} from '../../riotApi/customApi';
 
 class Notification extends Component {
@@ -76,8 +76,9 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch, ownProps){
     return{
-        acceptRequest: () => {dispatch(startAcceptRequest(ownProps.id,ownProps.availabilityId,ownProps.senderInfo.id))},
-        declineRequest: () => {dispatch(startDeclineRequest(ownProps.id))},
+        acceptRequest: () => {dispatch(startAcceptRequest(ownProps.id,ownProps.availabilityId,ownProps.senderInfo.id)); dispatch(broadcastSuccessMessage("Request accepted."))},
+        declineRequest: () => {dispatch(startDeclineRequest(ownProps.id));dispatch(broadcastErrorMessage("Request denied."))},
+        
     }
 }
 

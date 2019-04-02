@@ -21,7 +21,7 @@ export class MatchingRequestForm extends Component{
 
     componentWillReceiveProps(nextProps){
         var { availability } = nextProps;
-        if(availability === null){
+        if(availability == null){
             return <Typography  align="center" type="title" style={{fontWeight: '100'}}>This user doesn't have any time available :(</Typography>
         } else{
             for(var i in availability){
@@ -66,14 +66,13 @@ export class MatchingRequestForm extends Component{
         }
        
         this.setState({
-            ...this.state,
             availability:newAvailability
         });
     }
 
     renderAvailability(){
-        var availability  = this.state === null ? null : this.state.availability ;
-        if(availability === null){
+        var availability  = this.state.availability ;
+        if(availability === undefined){
             return <Typography  align="center" type="title" style={{fontWeight: '100'}}>This user doesn't have any time available :(</Typography>
         } else{
             availability = Object.keys(availability).map((av,index)=>{
@@ -89,10 +88,9 @@ export class MatchingRequestForm extends Component{
                 return <div key={weekday}>
                     {availability[weekday].filter(av => !av.isFilled).length > 0 && <Typography type="subheading">{weekday}</Typography>
                     }
-                    {availability[weekday].map((availabilityHours)=>{
+                    {availability[weekday].map((availabilityHours,index)=>{
                         if(!availabilityHours.isFilled)
                             return <ToggleButton key={availabilityHours.id} toggled={this.state.availability[availabilityHours.id].toggled} onClick={this.handleToggle.bind(this,availabilityHours.id)}>{`${availabilityHours.startingTime} - ${availabilityHours.endingTime}`}</ToggleButton>
-                        
                     })}
                 </div>
              });
