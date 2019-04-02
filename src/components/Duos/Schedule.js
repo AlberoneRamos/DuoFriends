@@ -7,7 +7,7 @@ import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dia
 import IconButton from 'material-ui/IconButton';
 import {connect} from 'react-redux';
 import Button from 'material-ui/Button';
-import {startRemoveDuoSchedule} from '../../actions';
+import {startRemoveDuoSchedule,broadcastErrorMessage} from '../../actions';
 
 export class Schedule extends Component {
     constructor(props){
@@ -83,7 +83,8 @@ const styles = theme => ({
 function mapDispatchToProps(dispatch,ownProps){
     return{
         removeDuoSchedule: (id) => {
-            dispatch(startRemoveDuoSchedule(id,ownProps.duoId))
+            dispatch(startRemoveDuoSchedule(id,ownProps.duoId));
+            dispatch(broadcastErrorMessage("Duo schedule deleted."));
         }
     }
 }

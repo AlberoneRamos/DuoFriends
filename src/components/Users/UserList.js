@@ -72,7 +72,7 @@ export class UserList extends Component {
         const playstyles = ["Casual","Competitive"];
         return (
             <div>
-                <div style={{backgroundColor:"#0f1015"}}>
+                <div style={{backgroundColor:"#0f1015",position:'sticky',top:'55px',zIndex:'2'}}>
                     <Grid container alignItems="center" justify="center" spacing={16} style={{width:'100vw',margin:'0px'}}>
                         <Grid item xs={10}>
                         <Input fullWidth startAdornment={
@@ -119,7 +119,7 @@ export class UserList extends Component {
                         </Grid>
                 </Collapse>
                 </div>
-                <List style={{paddingBottom:'8vh'}}>
+                <List style={{paddingBottom:'8vh',paddingTop:'8vh'}}>
                     {this.renderUserList(this.props.users)}
                 </List>
             </div>

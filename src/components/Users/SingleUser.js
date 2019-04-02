@@ -29,10 +29,10 @@ export class SingleUser extends Component {
     };
     
     render() {
-        const {classes, nickName, userRating,availability, mainRole, id, rank, league, playStyle} = this.props;
+        const {classes, nickName, userRating,availability, mainRole, id, rank, league} = this.props;
+        const roleInfo = getRoleInfo(mainRole, "png");
         return (
             <div style={{textAlign:'center'}}>
-                <img src={getRoleInfo(mainRole,"svg")[1]} alt={"role"} className={classes.roleImage}/>
                 <div
                     style={{
                     position: 'relative',
@@ -53,8 +53,8 @@ export class SingleUser extends Component {
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button} onClick={this.handleClickOpen}>Bora Duo!</Button>
                 <Grid style={{margin:"0px",width:"100%"}} container>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={roleInfo[0]} src={roleInfo[1]}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{roleInfo[0]}</Typography></Grid>
                     <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={getRankImage(league)}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{`${league.charAt(0).toUpperCase() + league.slice(1).toLowerCase()} ${rank}`}</Typography></Grid>
-                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={`/images/playstyle${playStyle}.png`}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{playStyle === 1 ? "Casual" : "Competitive"}</Typography></Grid>
                 </Grid>
                 <BottomSheet classes={{paper:classes.BottomSheet}} onRequestClose={this.handleRequestClose} open={this.state.open} snackbarFunction={this.handleSnackbarOpen}>
                         <MatchingRequestForm dispatch={this.props.dispatch.bind(this)} availability={availability} userId={this.props.match.params.id} closeFunction={this.handleRequestClose}/>
@@ -84,13 +84,6 @@ function styles(theme) {
             right: 0,
             marginLeft: 'auto',
             marginRight: 'auto'
-        },
-        roleImage:{
-            position:'absolute',
-            top:8,
-            right:16,
-            zIndex:2,
-            height:40
         },
         BottomSheet:{
             backgroundColor:'#fff !important'

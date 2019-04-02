@@ -21,7 +21,7 @@ export class MatchingRequestForm extends Component{
 
     componentWillReceiveProps(nextProps){
         var { availability } = nextProps;
-        if(availability == null){
+        if(availability === undefined){
             return <Typography  align="center" type="title" style={{fontWeight: '100'}}>This user doesn't have any time available :(</Typography>
         } else{
             for(var i in availability){
@@ -91,6 +91,7 @@ export class MatchingRequestForm extends Component{
                     {availability[weekday].map((availabilityHours,index)=>{
                         if(!availabilityHours.isFilled)
                             return <ToggleButton key={availabilityHours.id} toggled={this.state.availability[availabilityHours.id].toggled} onClick={this.handleToggle.bind(this,availabilityHours.id)}>{`${availabilityHours.startingTime} - ${availabilityHours.endingTime}`}</ToggleButton>
+
                     })}
                 </div>
              });

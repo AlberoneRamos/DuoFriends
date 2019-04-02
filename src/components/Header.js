@@ -113,6 +113,9 @@ const styles = theme => ({
     backgroundColor : theme.palette.secondary[500],
     width: '100%',
     color: '#fafafa',
+    position:'fixed',
+    top:'0px',
+    zIndex:'3'
   },
   closeButton:{
       color:"#fafafa",

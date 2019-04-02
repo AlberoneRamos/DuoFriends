@@ -29,10 +29,10 @@ export class MyProfile extends Component {
       };
     
     render() {
-        const {classes, nickName, userRating,mainRole,id,rank,league,playStyle} = this.props;
+        const {classes, nickName, userRating,mainRole,id,rank,league} = this.props;
+        const roleInfo = getRoleInfo(mainRole, "png");
         return (
             <div className={classes.root}>
-                <img src={getRoleInfo(mainRole,"svg")[1]} className={classes.roleImage} alt={"role"}/>
                 <div
                     style={{
                     position: 'relative',
@@ -53,8 +53,8 @@ export class MyProfile extends Component {
                 <Rating value={userRating} readOnly className={classes.Rating}/>
                 <Button color="primary" raised className={classes.Button}>Edit Profile</Button>
                 <Grid style={{margin:"0px",width:"100%"}} container>
+                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={roleInfo[0]} src={roleInfo[1]}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{roleInfo[0]}</Typography></Grid>
                     <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={getRankImage(league)}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{`${league.charAt(0).toUpperCase() + league.slice(1).toLowerCase()} ${rank}`}</Typography></Grid>
-                    <Grid item xs><Avatar style={{display:'inline-block'}} alt={rank} src={`../../assets/images/playstyle${playStyle}.png`}></Avatar><Typography type="body2" style={{fontWeight: 'bold'}}>{playStyle === 1 ? "Casual" : "Competitive"}</Typography></Grid>
                 </Grid>
             </div>
         );
@@ -84,13 +84,6 @@ function styles(theme) {
             right: 0,
             marginLeft: 'auto',
             marginRight: 'auto'
-        },
-        roleImage:{
-            position:'absolute',
-            top:8,
-            right:16,
-            zIndex:2,
-            height:40
         },
         Rating:{
             textAlign:'center',

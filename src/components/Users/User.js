@@ -35,7 +35,7 @@ class User extends Component {
                         color: '#2ec4b6'
                     }}/> < span style = {{verticalAlign:'top'}} > {
                         userRating
-                    } < /span></span >}/>
+                    } </span></span >}/>
                 </ListItem>
             </Link>
 

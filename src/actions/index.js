@@ -252,9 +252,7 @@ export function startRemoveDuoSchedule(scheduleId, duoId) {
                     const value = snapshot.val();
                     for(var id in value){
                         if(JSON.stringify(value[id]) === JSON.stringify({...snapshotValue,userId:uid,isFilled:true})){ 
-                            return availabilityRef.update(updates).then((result) => {
-                                return firebaseRef.child(`users/${duoId}/availability/${id}`).update(updates);
-                            });
+                            return availabilityRef.update(updates);
                         }
                     };
                 })

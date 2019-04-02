@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListItem, ListItemText, ListItemSecondaryAction} from 'material-ui/List';
+import {ListItem, ListItemText} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import {Link} from 'react-router-dom';
 import {withStyles} from 'material-ui/styles';
@@ -15,7 +15,7 @@ export class Duo extends Component {
     constructor(props){
         super(props);
         this.state = {
-            open:false
+            isExpanded:false
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -23,7 +23,7 @@ export class Duo extends Component {
     
 	toggle(){
          this.setState({
-             open:!this.state.open
+             isExpanded:!this.state.isExpanded
         });
     }
 
@@ -36,9 +36,9 @@ export class Duo extends Component {
                         <Avatar alt={rank} src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${getProfileImage(id)}.png`}></Avatar>
                     </Link>
                     <ListItemText primary={nickName}/>
-                    {this.state.open ? <ExpandLess className={classes.Expand}/> : <ExpandMore className={classes.Expand}/>}
+                    {this.state.isExpanded ? <ExpandLess className={classes.Expand}/> : <ExpandMore className={classes.Expand}/>}
                 </ListItem>
-                <Collapse className={classes.collapseText} in={this.state.open} transitionDuration="auto" unmountOnExit>
+                <Collapse className={classes.collapseText} in={this.state.isExpanded} transitionDuration="auto" unmountOnExit>
                     {schedules.map((schedule,index)=> <Schedule {...schedule} key={index} duoId={id}/>)}
                 </Collapse>
             </div>
@@ -90,7 +90,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch,ownProps){
     return{
         removeDuoSchedule: (id) => {
-            dispatch(startRemoveDuoSchedule(id,ownProps.id))
+            dispatch(startRemoveDuoSchedule(id,ownProps.id));
         }
     }
 }
