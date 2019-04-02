@@ -34,7 +34,7 @@ firebaseAuth.onAuthStateChanged((user)=>{
 
 ReactDOM.render(
     <Provider store={Store}>
-        <Router history={history}>
+        <Router history={history} basename={process.env.PUBLIC_URL}>
             <MuiThemeProvider theme={theme}>
                 <App/>
             </MuiThemeProvider>
