@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Henrique Ramos",
   "license": "MIT",
+  "homepage": "https://alberoneramos.github.io/DuoFriends/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
