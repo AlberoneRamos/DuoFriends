@@ -1,0 +1,191 @@
+// Mixins
+@import url('https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800');
+@import url('https://fonts.googleapis.com/css?family=Ropa+Sans');
+// Bootstrap Button Variant
+@mixin placeholder {
+     ::-webkit-input-placeholder {
+        @content
+    }
+     :-moz-placeholder {
+        @content
+    }
+     ::-moz-placeholder {
+        @content
+    }
+     :-ms-input-placeholder {
+        @content
+    }
+}
+
+@mixin colorize-button($color,
+$background,
+$border) {
+    color: $color;
+    background-color: $background;
+    border: 3px solid $border;
+    &:after {
+        background-color: $border;
+    }
+    &:hover {
+        color: #fff !important;
+    }
+    &:active {
+        color: #fff !important;
+    }
+}
+
+// Background Cover Mixin
+@mixin background-cover() {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+// Font Mixins
+@mixin serif-font() {
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+@mixin script-font() {
+    font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
+}
+
+@mixin body-font() {
+    font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@mixin heading-font() {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+@mixin transition($transition...) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    -ms-transition: $transition;
+    transition: $transition;
+}
+
+@mixin animation($animation...) {
+    -webkit-transition: $animation;
+    -moz-animation: $animation;
+    -o-animation: $animation;
+    -ms-animation: $animation;
+    animation: $animation;
+}
+
+@mixin user-select($userSelect) {
+    -webkit-user-select: $userSelect;
+    -khtml-user-select: $userSelect;
+    -moz-user-select: $userSelect;
+    -ms-user-select: $userSelect;
+    user-select: $userSelect;
+}
+
+@mixin transform($transformation) {
+    -webkit-transform: $transformation;
+    -moz-transform: $transformation;
+    -o-transform: $transformation;
+    -ms-transform: $transformation;
+    transform: $transformation;
+}
+
+@mixin box-shadow($values) {
+    -webkit-box-shadow: $values;
+    -moz-box-shadow: $values;
+    box-shadow: $values;
+}
+
+@mixin position($position,
+$top: null,
+$right: null,
+$bottom: null,
+$left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+@mixin flexbox {
+    display: -webkit-box; // old
+    display: -moz-box; // old
+    display: -ms-flexbox; // ie
+    display: -webkit-flex; // new
+    display: flex; // new
+}
+
+@mixin flexbox-properties($direction: row,
+$justifyContent: center,
+$flexWrap: wrap) {
+    flex-direction: $direction;
+    justify-content: $justifyContent;
+    flex-wrap: $flexWrap;
+}
+
+@mixin pseudo($display: inline,
+$pos: absolute,
+$content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+@mixin MQ($canvas) {
+    @if $canvas==S {
+        @media only screen and (min-width: $S) {
+            @content;
+        }
+    }
+    @else if $canvas==M {
+        @media only screen and (min-width: $M) {
+            @content;
+        }
+    }
+    @else if $canvas==L {
+        @media only screen and (min-width: $L) {
+            @content;
+        }
+    }
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+}
+
+// border radius
+@mixin border-radius($radius:.25em) {
+    border-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
